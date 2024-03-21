@@ -1,0 +1,56 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 90px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 100%;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+@media (max-width: 950px) {
+    .App-title {
+    font-size: 1.25em;
+    }
+
+    .card-button {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 13px;
+    }
+
+
+}
+
+@media (min-width: 768px) and (max-width: 950px) {
+    .col-md-1 p {
+    font-size: 12px;
+    }
+    .btn-warning {
+    width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    }
+}
+
+.App-intro {
+    font-size: large;
+}
+
+.clue-shown .clues {
+    height: 125px;
+}
+
+.game-container {
+    margin: 0 auto;
+    padding: 0 20px;
+}
