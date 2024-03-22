@@ -3,25 +3,6 @@ import { cardData } from "../gameFunctionality/gameInitialization"
 import { clueObj, team } from "../routes/BoardGame"
 import { makeAutoObservable } from "mobx";
 
-export type initalProperties = {
-    allDisabled: boolean
-    assassinWord: string []
-    civilianWords: string []
-    codeMasterView: boolean
-    firstTeam: team 
-    firstTeamClues: string []
-    firstTeamScore: number
-    firstTeamWords: string []
-    gameArray: cardData [] []
-    gameOver: boolean
-    guessPhase: boolean
-    guessesRemaining: number
-    secondTeam: team
-    secondTeamClues: string []
-    secondTeamScore: number
-    secondTeamWords: string []
-    turn: team
-}
 
 class GamePropertiesStore {
     rootstore : RootStore
