@@ -4,15 +4,17 @@ import ChatFooter from './ChatFooter';
 import ChatBody from './ChatBody';
 import './ChatRoom.css';
 import { Socket } from 'socket.io-client';
+import { observer } from 'mobx-react';
 
 export type Message = {
     text: string;
     name: string;
     id: string;
     socketID: string;
+    roomId: number
 }
 
-function ChatRoom({ socket } : { socket : Socket }) {
+const ChatRoom = observer(({ socket } : { socket : Socket }) => {
     const [messages, setMessages] = useState<Message []>([]);
     useEffect(() => {
         socket.on('messageResponse', (data) => setMessages([...messages, data]));
@@ -26,6 +28,6 @@ function ChatRoom({ socket } : { socket : Socket }) {
             </div>
         </div>
     );
-}
+})
 
 export default ChatRoom

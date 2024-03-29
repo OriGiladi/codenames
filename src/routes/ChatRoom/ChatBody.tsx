@@ -1,12 +1,12 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Message } from './ChatRoom';
+import rootStore from "../../rootStore";
+const { userStore } = rootStore
 
 const ChatBody = ( { messages } : { messages: Message [] }) => {
     const navigate = useNavigate();
 
     const handleLeaveChat = () => {
-        localStorage.removeItem('userName');
         navigate('/');
         window.location.reload();
     };
@@ -22,26 +22,27 @@ const ChatBody = ( { messages } : { messages: Message [] }) => {
 
             <div className="message__container">
                 {messages.map((message) =>
-                message.name === localStorage.getItem('userName') ? (
-                    <div className="message__chats" key={message.id}>
-                    <p className="sender__name">You</p>
-                    <div className="message__sender">
-                        <p>{message.text}</p>
-                    </div>
-                    </div>
-                ) : (
-                    <div className="message__chats" key={message.id}>
-                    <p>{message.name}</p>
-                    <div className="message__recipient">
-                        <p>{message.text}</p>
-                    </div>
-                    </div>
-                )
+                    message.roomId === userStore.chatRoomId  ? ( // Check if the message belongs to the current room
+                        message.name === userStore.userName ? (
+                            <div className="message__chats" key={message.id}>
+                                <p className="sender__name">You</p>
+                                <div className="message__sender">
+                                    <p>{message.text}</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="message__chats" key={message.id}>
+                                <p>{message.name}</p>
+                                <div className="message__recipient">
+                                    <p>{message.text}</p>
+                                </div>
+                            </div>
+                        )
+                    ) : null
                 )}
-
-                <div className="message__status">
+            </div>
+            <div className="message__status">
                 <p>Someone is typing...</p>
-                </div>
             </div>
         </>
     );

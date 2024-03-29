@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { Socket } from 'socket.io-client';
+import rootStore from "../../rootStore";
+const { userStore } = rootStore
 
 const ChatFooter = ({socket} : {socket: Socket}) => {
     const [message, setMessage] = useState('');
 
     const handleSendMessage = (e) => {
         e.preventDefault();
-        if (message.trim() && localStorage.getItem('userName')) {
+        if (message.trim() && userStore.userName !== '') {
             socket.emit('message', {
                 text: message,
-                name: localStorage.getItem('userName'),
+                name: userStore.userName,
                 id: `${socket.id}${Math.random()}`,
                 socketID: socket.id,
-                roomId: roomId
+                roomId: userStore.chatRoomId,
             });
         }
         setMessage('');

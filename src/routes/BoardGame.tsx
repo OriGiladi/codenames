@@ -12,7 +12,7 @@ import { passTurn } from '../gameFunctionality/passTurn'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Socket } from 'socket.io-client'
-const { gamePropertiesStore } = rootStore
+const { gamePropertiesStore, userStore } = rootStore
 
 export type clueObj = {
     clue: string,
@@ -24,8 +24,9 @@ const BoardGame = observer(({ socket } : { socket: Socket }) => {
     const [chatRoomID, setChatRoomID] = useState('');
     const InsertUserName = () => {
         socket.emit('newUser', { userName, socketID: socket.id });
-        localStorage.setItem("userName", userName) 
+        userStore.setUserName(userName)
         socket.emit("join_room", chatRoomID)
+        userStore.setChatRoomId(Number(chatRoomID))
         navigate('/chat');
     }
     return (
