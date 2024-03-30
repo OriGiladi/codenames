@@ -3,6 +3,8 @@ import rootStore from "../rootStore";
 const { gamePropertiesStore } = rootStore
 import { wordBank } from "../wordBark";
 import { LoaderFunction } from "react-router-dom";
+import { Socket } from "socket.io-client";
+import { gamePropertiesObj } from "../types/gamePropertiesObj";
 
 export type cardData = {
     word: string;
@@ -30,7 +32,7 @@ function shuffle(wordBank: string [] | cardData []) {
     return wordBank;
 }
 
-export function getInitialGameProperties(): LoaderFunction<any> | null{
+export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | null{
     let startTurn: team;
     let secondTurn: team;
     Math.round(Math.random()) > 0 ? (startTurn = "blue") : (startTurn = "red");
@@ -93,24 +95,44 @@ export function getInitialGameProperties(): LoaderFunction<any> | null{
         const row = arrayofWordObjects.splice(0, 5);
         gameArray.push(row)
     }
+    const gameStartProperties: gamePropertiesObj = { 
+        gameArray: gameArray,
+        firstTeamWords: firstTeamWords,
+        secondTeamWords: secondTeamWords,
+        civilianWords: civilianWords,
+        assassinWord: assassinWord,
+        turn: startTurn,
+        firstTeam: startTurn,
+        secondTeam: secondTurn,
+        codeMasterView: false,
+        guessPhase: false,
+        guessesRemaining: 0,
+        allDisable: true,
+        firstTeamScore: 9,
+        secondTeamScore: 8,
+        firstTeamClues: [],
+        secondTeamClues: [],
+        gameOver: false
+    }
+    socket.emit('gameStart', gameStartProperties);
     
-        gamePropertiesStore.setGameArray(gameArray)
-        gamePropertiesStore.setFirstTeamWords(firstTeamWords)
-        gamePropertiesStore.setSecondTeamWords(secondTeamWords)
-        gamePropertiesStore.setCivilianWords(civilianWords)
-        gamePropertiesStore.setAssassinWord(assassinWord)
-        gamePropertiesStore.setTurn(startTurn)
-        gamePropertiesStore.setFirstTeam(startTurn)
-        gamePropertiesStore.setSecondTeam(secondTurn)
-        gamePropertiesStore.setCodeMasterView(false)
-        gamePropertiesStore.setGuessPhase(false)
-        gamePropertiesStore.setGuessesRemaining(0)
-        gamePropertiesStore.setAllDisable(true)
-        gamePropertiesStore.setFirstTeamScore(9)
-        gamePropertiesStore.setSecondTeamScore(8)
-        gamePropertiesStore.setFirstTeamClues([])
-        gamePropertiesStore.setSecondTeamClues([])
-        gamePropertiesStore.setGameOver(false)   
+        // gamePropertiesStore.setGameArray(gameArray)
+        // gamePropertiesStore.setFirstTeamWords(firstTeamWords)
+        // gamePropertiesStore.setSecondTeamWords(secondTeamWords)
+        // gamePropertiesStore.setCivilianWords(civilianWords)
+        // gamePropertiesStore.setAssassinWord(assassinWord)
+        // gamePropertiesStore.setTurn(startTurn)
+        // gamePropertiesStore.setFirstTeam(startTurn)
+        // gamePropertiesStore.setSecondTeam(secondTurn)
+        // gamePropertiesStore.setCodeMasterView(false)
+        // gamePropertiesStore.setGuessPhase(false)
+        // gamePropertiesStore.setGuessesRemaining(0)
+        // gamePropertiesStore.setAllDisable(true)
+        // gamePropertiesStore.setFirstTeamScore(9)
+        // gamePropertiesStore.setSecondTeamScore(8)
+        // gamePropertiesStore.setFirstTeamClues([])
+        // gamePropertiesStore.setSecondTeamClues([])
+        // gamePropertiesStore.setGameOver(false)   
         
         return null // makes it able to be used as a loader
 }

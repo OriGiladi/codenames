@@ -7,9 +7,10 @@ import { getInitialGameProperties } from './gameFunctionality/gameInitialization
 import ChatRoom from './routes/ChatRoom/ChatRoom'
 import socketIO from 'socket.io-client';
 import { Socket } from 'socket.io-client';
-const socket: Socket = socketIO.connect('http://localhost:3002',/* {
+import Home from './routes/Home'
+const socket: Socket = socketIO.connect('http://localhost:3002', {
   autoConnect: false
-}*/);
+});
 function App() {
   return (
     <BrowserRouter>
@@ -19,12 +20,15 @@ function App() {
         element={<RootLayout />}>
             <Route 
             index 
-            loader={getInitialGameProperties()}
-            element={<BoardGame socket={socket}/>} 
+            element={<Home socket={socket}/>} 
             />
             <Route 
             path='/chat' 
             element={<ChatRoom socket={socket} />} 
+            />
+            <Route 
+            path='/board' 
+            element={<BoardGame socket={socket}/>} 
             />
     
             <Route 

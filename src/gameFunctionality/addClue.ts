@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 import rootStore from "../rootStore";
 import { clueObj } from "../routes/BoardGame";
 const { gamePropertiesStore } = rootStore
