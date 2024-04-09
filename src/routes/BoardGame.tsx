@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 export type team = "red" | "blue" | "assassin" | "civilian"
 import { observer } from 'mobx-react';
 import { Socket } from 'socket.io-client';
@@ -48,7 +48,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                     />
 
                     <div className="game-container">
-                        <ClueForm giveClue={addClue} />
+                        <ClueForm giveClue={addClue} socket={socket} />
 
                         <div className="row">
                             <Player
