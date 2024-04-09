@@ -7,9 +7,6 @@ const { gamePropertiesStore } = rootStore
 export function passTurn(socket: Socket) {
     let nextTurn: team | null = null;
     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
-    // gamePropertiesStore.setAllDisable(true)
-    // gamePropertiesStore.setTurn(nextTurn)
-    // gamePropertiesStore.setGuessesRemaining(0)
     const passTurnProperties: gamePropertiesObj = {
         allDisable: true,
         turn: nextTurn,

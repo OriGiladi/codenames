@@ -21,8 +21,6 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? 
                     socket.emit("updateGameProperties", {firstTeamScore: firstTeamScore -1} as gamePropertiesObj):
                     socket.emit("updateGameProperties", {secondTeamScore: secondTeamScore -1} as gamePropertiesObj)
-                    // gamePropertiesStore.setFirstTeamScore(firstTeamScore - 1) : 
-                    // gamePropertiesStore.setSecondTeamScore(secondTeamScore - 1);
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "red") : (nextTurn = "blue");
                     socket.emit("updateGameProperties", {guessesRemaining: guessesRemining -1} as gamePropertiesObj);
@@ -33,49 +31,34 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? 
                     socket.emit("updateGameProperties", {secondTeamScore: secondTeamScore -1} as gamePropertiesObj):
                     socket.emit("updateGameProperties", {firstTeamScore: firstTeamScore -1} as gamePropertiesObj)
-                    
-                    // gamePropertiesStore.setSecondTeamScore(secondTeamScore - 1) : 
-                    // gamePropertiesStore.setFirstTeamScore(firstTeamScore - 1)
                     socket.emit("updateGameProperties", {guessesRemaining: 0} as gamePropertiesObj)
-                    //gamePropertiesStore.setGuessesRemaining(0);
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
                     socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
-                    // gamePropertiesStore.setGuessPhase(false)
-                    // gamePropertiesStore.setAllDisable(true)
                     break;
                 } else if (gameArray[i][j].team === "civilian") {
                     console.log("civilian")
                     gameArray[i][j].clicked = true;
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
                     
-                    // gamePropertiesStore.setGuessPhase(false)
-                    // gamePropertiesStore.setAllDisable(true)
-                    // gamePropertiesStore.setGuessesRemaining(0);
                     socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {guessesRemaining: 0} as gamePropertiesObj)
                     break;
                 } else if (gameArray[i][j].team === "assassin") {
                     gameArray[i][j].clicked = true;
-                    // gamePropertiesStore.setGameOver(true)
-                    // gamePropertiesStore.setAllDisable(true)
                     socket.emit("updateGameProperties", {gameOver: true} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
                     break;
                 }
             }
         }
-        // gamePropertiesStore.setGameArray(gameArray)
         socket.emit("updateGameProperties", {gameArray: gameArray} as gamePropertiesObj)
         console.log("nextTurn:", nextTurn)
         }
 
         if (gamePropertiesStore.guessesRemaining === 0) {
-            // gamePropertiesStore.setGuessPhase(false)
-            // gamePropertiesStore.setAllDisable(true)
-            // gamePropertiesStore.setTurn(otherTeam as team)
             socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
             socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
             socket.emit("updateGameProperties", {turn: otherTeam as team} as gamePropertiesObj)

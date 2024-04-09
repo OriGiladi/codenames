@@ -115,24 +115,5 @@ export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | 
         gameOver: false
     }
     socket.emit('gameStart', gameStartProperties);
-    
-        // gamePropertiesStore.setGameArray(gameArray)
-        // gamePropertiesStore.setFirstTeamWords(firstTeamWords)
-        // gamePropertiesStore.setSecondTeamWords(secondTeamWords)
-        // gamePropertiesStore.setCivilianWords(civilianWords)
-        // gamePropertiesStore.setAssassinWord(assassinWord)
-        // gamePropertiesStore.setTurn(startTurn)
-        // gamePropertiesStore.setFirstTeam(startTurn)
-        // gamePropertiesStore.setSecondTeam(secondTurn)
-        // gamePropertiesStore.setCodeMasterView(false)
-        // gamePropertiesStore.setGuessPhase(false)
-        // gamePropertiesStore.setGuessesRemaining(0)
-        // gamePropertiesStore.setAllDisable(true)
-        // gamePropertiesStore.setFirstTeamScore(9)
-        // gamePropertiesStore.setSecondTeamScore(8)
-        // gamePropertiesStore.setFirstTeamClues([])
-        // gamePropertiesStore.setSecondTeamClues([])
-        // gamePropertiesStore.setGameOver(false)   
-        
         return null // makes it able to be used as a loader
 }
