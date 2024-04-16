@@ -1,14 +1,12 @@
 import { Outlet } from "react-router-dom"
-import rootStore from "../rootStore"
 import { observer } from "mobx-react"
+import { Socket } from "socket.io-client"
+import NavBar from "./NavBar"
 
-
-const {  userStore } = rootStore
-const RootLayout = observer(() => {
+const RootLayout = observer(({socket}: {socket: Socket}) => {
     return (
         <> 
-            <div>{userStore.userName}</div>
-            <div>Room ID: {userStore.chatRoomId}</div>
+            <NavBar socket={socket} />
             <Outlet />
         </>
     )

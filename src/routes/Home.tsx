@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
 import { Socket } from 'socket.io-client';
@@ -10,9 +10,11 @@ const Home = observer(({ socket } : { socket: Socket }) => {
     const [userName, setUserName] = useState('');
     const [chatRoomID, setChatRoomID] = useState('');
     const InsertUserName = () => {
-        socket.emit('newUser', { userName, socketID: socket.id });
         userStore.setUserName(userName)
         socket.connect()
+        socket.on('connect', () => {
+            socket.emit('newUser', { userName, socketID: socket.id});
+        });
         socket.emit("join_room", chatRoomID)
         userStore.setChatRoomId(Number(chatRoomID))
         getInitialGameProperties(socket)
