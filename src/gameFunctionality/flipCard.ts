@@ -24,6 +24,8 @@ export const flipCard = (clue: string, socket: Socket) => {
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "red") : (nextTurn = "blue");
                     socket.emit("updateGameProperties", {guessesRemaining: guessesRemining -1} as gamePropertiesObj);
+
+                    alert("correct")
                 } 
                 else if (gameArray[i][j].team === otherTeam) {
                     console.log("other team")
@@ -36,6 +38,8 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
                     socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
+
+                    alert(`opponent's word, turn switched to ${nextTurn}`)
                     break;
                 } else if (gameArray[i][j].team === "civilian") {
                     console.log("civilian")
@@ -45,6 +49,8 @@ export const flipCard = (clue: string, socket: Socket) => {
                     socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {guessesRemaining: 0} as gamePropertiesObj)
+
+                    alert(`civilian's word, turn switched to ${nextTurn}`)
                     break;
                 } else if (gameArray[i][j].team === "assassin") {
                     gameArray[i][j].clicked = true;
@@ -58,7 +64,8 @@ export const flipCard = (clue: string, socket: Socket) => {
         console.log("nextTurn:", nextTurn)
         }
 
-        if (gamePropertiesStore.guessesRemaining === 0) {
+        if (gamePropertiesStore.guessesRemaining === 1) { // TODO: shoul'd work for zero but for some reason working for onew fix it
+            alert("out of guesses, switching turn")
             socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
             socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
             socket.emit("updateGameProperties", {turn: otherTeam as team} as gamePropertiesObj)

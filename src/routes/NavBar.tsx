@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import rootStore from "../rootStore"
 import { observer } from "mobx-react"
 import { Socket } from 'socket.io-client'
@@ -14,6 +14,7 @@ const NavBar = observer(({socket}: {socket: Socket}) => {
     return (
         <>
             <div>{userStore.userName}</div>
+            <div>{userStore.role}</div>
             <div>Room ID: {userStore.chatRoomId}</div>
             <div>online: {playerOnline}</div>
         </>
