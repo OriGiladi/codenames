@@ -1,11 +1,13 @@
 import { observer } from "mobx-react";
 import { clueObj, team } from "./BoardGame";
-const Player = observer(({ name, score, clues, passTurn, currentTurn }: { 
+import { Socket } from "socket.io-client";
+const Player = observer(({ name, score, clues, passTurn, currentTurn, socket }: { 
     name: team, 
     score: number, 
     clues: clueObj[], 
-    passTurn: () => void, 
-    currentTurn: team 
+    passTurn: (socket: Socket) => void, 
+    currentTurn: team,
+    socket: Socket
 }) => {
     const isOff = name !== currentTurn;
     
@@ -17,7 +19,7 @@ const Player = observer(({ name, score, clues, passTurn, currentTurn }: {
                 <p key={index}> {clueObj.clue} ({clueObj.num}) </p>
             ))}
             <button style={{backgroundColor:"#ec971f"}} disabled={isOff} 
-            type="button" className="btn btn-warning" onClick={passTurn}>
+            type="button" className="btn btn-warning" onClick={() => { passTurn(socket) }}>
                 Pass
             </button>
         </div>

@@ -1,10 +1,11 @@
+import { Socket } from "socket.io-client";
 import { team } from "../BoardGame";
 import FlipedCard from "./FlipedCard";
 import UnflipedCard from "./UnflipedCard";
 
 
-function Card({clue, key, team, clicked, flipCard, disable}: 
-    {clue: string, key: number, team: team, clicked: boolean, flipCard: (clue: string) => void, disable: boolean}) {
+function Card({clue, key, team, clicked, flipCard, disable, socket}: 
+    {clue: string, key: number, team: team, clicked: boolean, flipCard: (clue: string, socket: Socket) => void, disable: boolean, socket: Socket}) {
     const blueTeamStyle = {
         backgroundColor: "#386FA4"
     };
@@ -64,8 +65,8 @@ function Card({clue, key, team, clicked, flipCard, disable}:
     return (
         <>
             {clicked ? 
-                <FlipedCard clue={clue} cardStyle={cardStyle} flipCard={flipCard} /> : 
-                <UnflipedCard clue={clue} disable={disable} flipCard={flipCard} /> 
+                <FlipedCard clue={clue} socket={socket} cardStyle={cardStyle} flipCard={flipCard} /> : 
+                <UnflipedCard clue={clue} socket={socket} disable={disable} flipCard={flipCard} /> 
             }
         </>
     )

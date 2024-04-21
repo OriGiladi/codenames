@@ -3,12 +3,13 @@ import { team } from '../BoardGame'
 import rootStore from '../../rootStore'
 import { observer } from 'mobx-react'
 import { Image } from '@chakra-ui/react'
+import { Socket } from 'socket.io-client'
 const { gamePropertiesStore } = rootStore
 
-const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam}: 
-    { firstTeamWords: string [], firstTeam: team, civilianWords: string[], assassinWord: string [], secondTeamWords: string [], secondTeam: team}) => {
+const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam, socket}: 
+    { firstTeamWords: string [], firstTeam: team, civilianWords: string[], assassinWord: string [], secondTeamWords: string [], secondTeam: team, socket: Socket}) => {
     const showClues = () => {    
-        gamePropertiesStore.setCodeMasterView(!gamePropertiesStore.codeMasterView)
+        socket.emit('showClues')
     }
     return (
         <header className={`App-header clue-${gamePropertiesStore.codeMasterView ? "shown" : "hide"}`}>

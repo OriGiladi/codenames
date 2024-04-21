@@ -4,10 +4,11 @@ import CodeMasterView from './Views/CodeMasterView';
 import PlayerView from './Views/PlayerView';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
+import { Socket } from 'socket.io-client';
 
 const { gamePropertiesStore } = rootStore;
 
-const ClueForm = observer(({ giveClue }: { giveClue: (clue: clueObj) => void }) => {
+const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, socket: Socket) => void, socket: Socket }) => {
     const [clue, setClue] = useState('');
     const [clueNum, setClueNum] = useState('');
 
@@ -21,10 +22,14 @@ const ClueForm = observer(({ giveClue }: { giveClue: (clue: clueObj) => void }) 
     
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        giveClue({
-            clue: clue,
-            num: Number(clueNum)
-        });
+        giveClue(
+            {
+                clue: clue,
+                num: Number(clueNum),
+                
+            },
+            socket
+        );
     };
 
     return (

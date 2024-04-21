@@ -5,7 +5,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import '@fontsource/ubuntu'
 import './index.css'
 
-const theme = extendTheme({
+const theme = extendTheme({ 
   fonts: {
       heading: `'Ubuntu', sans-serif`,
       body: `'Ubuntu', sans-serif`,
