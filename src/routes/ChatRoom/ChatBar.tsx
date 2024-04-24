@@ -9,7 +9,7 @@ const ChatBar = ({ socket } : { socket: Socket }) => {
     const [users, setUsers] = useState<socketUser []>([]);
 
     useEffect(() => {
-        socket.on('newUserResponse', (data) => setUsers(data));
+        socket.on('updatingUsersResponse', (data) => setUsers(data));
     }, [socket, users]);
 
     return (

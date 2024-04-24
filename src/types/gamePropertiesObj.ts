@@ -11,7 +11,6 @@ export type gamePropertiesObj = {
     firstTeam?: team;
     secondTeam?: team;
     codeMasterView?: boolean;
-    guessPhase?: boolean;
     guessesRemaining?: number;
     allDisable?: boolean;
     firstTeamScore?: number;

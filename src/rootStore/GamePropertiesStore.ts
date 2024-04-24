@@ -16,7 +16,6 @@ class GamePropertiesStore {
     firstTeamWords?: string []
     gameArray: cardData [] [] = []
     gameOver?: boolean
-    guessPhase?: boolean
     guessesRemaining?: number
     secondTeam?: team
     secondTeamClues?: clueObj []
@@ -58,9 +57,6 @@ class GamePropertiesStore {
     }
     setGameOver(gameOver: boolean) {
         this.gameOver = gameOver
-    }
-    setGuessPhase(guessPhase: boolean) {
-        this.guessPhase = guessPhase
     }
     setGuessesRemaining(guessesRemaining: number) {
         this.guessesRemaining = guessesRemaining

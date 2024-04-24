@@ -105,7 +105,6 @@ export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | 
         firstTeam: startTurn,
         secondTeam: secondTurn,
         codeMasterView: false,
-        guessPhase: false,
         guessesRemaining: 0,
         allDisable: true,
         firstTeamScore: 9,

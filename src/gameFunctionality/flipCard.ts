@@ -19,11 +19,16 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gameArray[i][j].clicked = true;
 
                     gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? 
-                    socket.emit("updateGameProperties", {firstTeamScore: firstTeamScore -1} as gamePropertiesObj):
-                    socket.emit("updateGameProperties", {secondTeamScore: secondTeamScore -1} as gamePropertiesObj)
+                    socket.emit("updateGameProperties", {
+                        firstTeamScore: firstTeamScore -1,
+                        guessesRemaining: guessesRemining -1
+                    } as gamePropertiesObj):
+                    socket.emit("updateGameProperties", {
+                        secondTeamScore: secondTeamScore -1,
+                        guessesRemaining: guessesRemining -1
+                    } as gamePropertiesObj)
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "red") : (nextTurn = "blue");
-                    socket.emit("updateGameProperties", {guessesRemaining: guessesRemining -1} as gamePropertiesObj);
 
                     alert("correct")
                 } 
@@ -31,12 +36,13 @@ export const flipCard = (clue: string, socket: Socket) => {
                     console.log("other team")
                     gameArray[i][j].clicked = true;
                     gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? 
-                    socket.emit("updateGameProperties", {secondTeamScore: secondTeamScore -1} as gamePropertiesObj):
-                    socket.emit("updateGameProperties", {firstTeamScore: firstTeamScore -1} as gamePropertiesObj)
-                    socket.emit("updateGameProperties", {guessesRemaining: 0} as gamePropertiesObj)
+                    socket.emit("updateGameProperties", {
+                        secondTeamScore: secondTeamScore -1,
+                        firstTeamScore: firstTeamScore -1,
+                        guessesRemaining: 0
+                    } as gamePropertiesObj):
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
-                    socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
                     socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
 
                     alert(`opponent's word, turn switched to ${nextTurn}`)
@@ -46,28 +52,33 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gameArray[i][j].clicked = true;
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
                     
-                    socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
-                    socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
-                    socket.emit("updateGameProperties", {guessesRemaining: 0} as gamePropertiesObj)
+                    socket.emit("updateGameProperties", {
+                        allDisable: true,
+                        guessesRemaining: 0
+                    } as gamePropertiesObj)
 
                     alert(`civilian's word, turn switched to ${nextTurn}`)
                     break;
                 } else if (gameArray[i][j].team === "assassin") {
                     gameArray[i][j].clicked = true;
-                    socket.emit("updateGameProperties", {gameOver: true} as gamePropertiesObj)
-                    socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
+                    socket.emit("updateGameProperties", {
+                        gameOver: true,
+                        allDisable: true
+                    } as gamePropertiesObj)
                     break;
                 }
             }
         }
-        socket.emit("updateGameProperties", {gameArray: gameArray} as gamePropertiesObj)
-        console.log("nextTurn:", nextTurn)
+        socket.emit("updateGameProperties", {
+            gameArray: gameArray
+        } as gamePropertiesObj)
         }
 
         if (gamePropertiesStore.guessesRemaining === 1) { // TODO: shoul'd work for zero but for some reason working for onew fix it
             alert("out of guesses, switching turn")
-            socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
-            socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
-            socket.emit("updateGameProperties", {turn: otherTeam as team} as gamePropertiesObj)
+            socket.emit("updateGameProperties", {
+                allDisable: true,
+                turn: otherTeam as team
+            } as gamePropertiesObj)
         }
 }

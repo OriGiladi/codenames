@@ -10,7 +10,6 @@ export function addClue(clueObj: clueObj, socket: Socket) {
         clues.push(clueObj);
         const addClueProperties: gamePropertiesObj = {
             firstTeamClues: clues,
-            guessPhase: true,
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num
@@ -21,7 +20,6 @@ export function addClue(clueObj: clueObj, socket: Socket) {
         clues.push(clueObj);
         const addClueProperties: gamePropertiesObj = {
             secondTeamClues: clues,
-            guessPhase: true,
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num
