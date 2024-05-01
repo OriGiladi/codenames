@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Socket } from 'socket.io-client';
 import rootStore from "../../rootStore";
 const { userStore } = rootStore
@@ -6,7 +6,7 @@ const { userStore } = rootStore
 const ChatFooter = ({socket} : {socket: Socket}) => {
     const [message, setMessage] = useState('');
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = (e: FormEvent) => {
         e.preventDefault();
         if (message.trim() && userStore.userName !== '') {
             socket.emit('message', {

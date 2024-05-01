@@ -11,6 +11,7 @@ import Header from './Header/Header';
 import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
+import { gamePropertiesObj } from '../types/gamePropertiesObj';
 
 const { gamePropertiesStore } = rootStore;
 
@@ -62,7 +63,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
 
                             <div className="col-md-10">
                                 <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[0].map((wordObj, index) => (
+                                    {gamePropertiesStore.gameArray[0].map((wordObj) => (
                                         <Card
                                             clue={wordObj.word}
                                             key={Math.floor(Math.random() * 10000) + 1}
@@ -75,7 +76,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                     ))}
                                 </div>
                                 <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[1].map((wordObj, index) => (
+                                    {gamePropertiesStore.gameArray[1].map((wordObj) => (
                                         <Card
                                             clue={wordObj.word}
                                             key={Math.floor(Math.random() * 10000) + 1}
@@ -88,7 +89,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                     ))}
                                 </div>
                                 <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[2].map((wordObj, index) => (
+                                    {gamePropertiesStore.gameArray[2].map((wordObj) => (
                                         <Card
                                             clue={wordObj.word}
                                             key={Math.floor(Math.random() * 10000) + 1}
@@ -101,7 +102,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                     ))}
                                 </div>
                                 <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[3].map((wordObj, index) => (
+                                    {gamePropertiesStore.gameArray[3].map((wordObj) => (
                                         <Card
                                             clue={wordObj.word}
                                             key={Math.floor(Math.random() * 10000) + 1}
@@ -114,7 +115,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                     ))}
                                 </div>
                                 <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[4].map((wordObj, index) => (
+                                    {gamePropertiesStore.gameArray[4].map((wordObj) => (
                                         <Card
                                             clue={wordObj.word}
                                             key={Math.floor(Math.random() * 10000) + 1}

@@ -1,11 +1,9 @@
 import { RootStore } from "."
 import { makeAutoObservable } from "mobx";
+import { role } from "../utils/types";
 
-export type role = "code-master" | "player"// TODO: move this type to a constants.ts file
-export const userRoles = {
-    CODE_MASTER: "code-master",
-    PLAYER: "player"
-} // TODO: move this type to a constants.ts file
+
+
 class UserStore {
     rootstore : RootStore
     userName: string = "";

@@ -1,6 +1,4 @@
 import { team } from "../routes/BoardGame";
-import rootStore from "../rootStore";
-const { gamePropertiesStore } = rootStore
 import { wordBank } from "../wordBark";
 import { LoaderFunction } from "react-router-dom";
 import { Socket } from "socket.io-client";

@@ -1,6 +1,6 @@
 import { cardData } from "../gameFunctionality/gameInitialization"
 import rootStore from "../rootStore"
-import { userRoles } from "../rootStore/UserStore"
+import { userRoles } from "../utils/constants"
 import { clueObj, team } from "../routes/BoardGame"
 import { gamePropertiesObj } from "../types/gamePropertiesObj"
 const { gamePropertiesStore, userStore } = rootStore
@@ -26,4 +26,5 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setFirstTeamClues(data.firstTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamClues(data.secondTeamClues as clueObj[])
     gamePropertiesStore.setGameOver(data.gameOver as boolean)  
+
 }

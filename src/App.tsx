@@ -4,11 +4,10 @@ import RootLayout from './routes/RootLayout'
 import UnfimiliarPage from './routes/errorPages/UnfimiliarPage'
 import BoardGame from './routes/BoardGame'
 import ChatRoom from './routes/ChatRoom/ChatRoom'
-import socketIO from 'socket.io-client';
-import { Socket } from 'socket.io-client';
+import {io, Socket } from 'socket.io-client';
 import Home from './routes/Home'
 
-const socket: Socket = socketIO.connect('http://localhost:3002', {
+const socket: Socket = io('http://localhost:3002', {
   autoConnect: false
 });
 function App() {
