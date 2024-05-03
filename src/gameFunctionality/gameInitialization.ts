@@ -1,5 +1,4 @@
 import { wordBank } from "../wordBark";
-import { LoaderFunction } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import { cardData, gamePropertiesObj, team } from "../utils/types";
 
@@ -23,7 +22,7 @@ function shuffle(wordBank: string [] | cardData []) {
     return wordBank;
 }
 
-export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | null{
+export function getInitialGameProperties(socket: Socket){
     let startTurn: team;
     let secondTurn: team;
     Math.round(Math.random()) > 0 ? (startTurn = "blue") : (startTurn = "red");

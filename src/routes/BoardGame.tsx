@@ -47,7 +47,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
 
                         <div className="row">
                             <Player
-                                name={gamePropertiesStore.firstTeam as team}
+                                team={gamePropertiesStore.firstTeam as team}
                                 score={gamePropertiesStore.firstTeamScore as number}
                                 clues={gamePropertiesStore.firstTeamClues as clueObj[]}
                                 passTurn={passTurn}
@@ -124,7 +124,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                             </div>
 
                             <Player
-                                name={gamePropertiesStore.secondTeam as team}
+                                team={gamePropertiesStore.secondTeam as team}
                                 score={gamePropertiesStore.secondTeamScore as number}
                                 clues={gamePropertiesStore.secondTeamClues as clueObj[]}
                                 passTurn={passTurn}

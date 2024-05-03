@@ -1,14 +1,13 @@
 import { RootStore } from "."
 import { makeAutoObservable } from "mobx";
-import { role } from "../utils/types";
-
-
+import { role, team } from "../utils/types";
 
 class UserStore {
     rootstore : RootStore
     userName: string = "";
     chatRoomId: number = 0
     role?: role
+    team?: team
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
         makeAutoObservable(this);
@@ -21,6 +20,9 @@ class UserStore {
     }
     setRole(role: role) {
         this.role = role
+    }
+    setTeam(team: team) {
+        this.team = team
     }
 }
 export default UserStore

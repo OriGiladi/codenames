@@ -13,8 +13,8 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setSecondTeam(data.secondTeam as team)
     gamePropertiesStore.setCodeMasterView(userStore.role === userRoles.CODE_MASTER ? true : false)
     gamePropertiesStore.setGuessesRemaining(data.guessesRemaining as number)
-    if(userStore.role === userRoles.PLAYER){
-        gamePropertiesStore.setAllDisable(data.allDisable as boolean )
+    if(userStore.role === userRoles.PLAYER && userStore.team === gamePropertiesStore.turn){
+        gamePropertiesStore.setAllDisable(data.allDisable as boolean)
     }
     else{
         gamePropertiesStore.setAllDisable(true)
