@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
-import { clueObj, team } from "./BoardGame";
+
 import { Socket } from "socket.io-client";
+import { clueObj, team } from "../utils/types";
 const Player = observer(({ name, score, clues, passTurn, currentTurn, socket }: { 
     name: team, 
     score: number, 

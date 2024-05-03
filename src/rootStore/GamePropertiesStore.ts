@@ -1,7 +1,6 @@
 import { RootStore } from "."
-import { cardData } from "../gameFunctionality/gameInitialization"
-import { clueObj, team } from "../routes/BoardGame"
 import { makeAutoObservable } from "mobx";
+import { cardData, clueObj, team } from "../utils/types";
 
 
 class GamePropertiesStore {

@@ -1,10 +1,10 @@
 import TeamWords from './TeamWords'
-import { team } from '../BoardGame'
 import rootStore from '../../rootStore'
 import { observer } from 'mobx-react'
 import { Image } from '@chakra-ui/react'
 import { Socket } from 'socket.io-client'
 import { userRoles } from '../../utils/constants'
+import { team } from '../../utils/types'
 const { gamePropertiesStore, userStore } = rootStore
 
 const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam, socket}: 

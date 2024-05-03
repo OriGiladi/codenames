@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-export type team = "red" | "blue" | "assassin" | "civilian"
 import { observer } from 'mobx-react';
 import { Socket } from 'socket.io-client';
 import { boardLoader } from '../loaders/boardLoader';
@@ -11,14 +10,9 @@ import Header from './Header/Header';
 import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
-import { gamePropertiesObj } from '../types/gamePropertiesObj';
+import { clueObj, team } from '../utils/types';
 
 const { gamePropertiesStore } = rootStore;
-
-export type clueObj = {
-    clue: string;
-    num: number;
-};
 
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);

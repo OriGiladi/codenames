@@ -5,14 +5,7 @@ import ChatBody from './ChatBody';
 import './ChatRoom.css';
 import { Socket } from 'socket.io-client';
 import { observer } from 'mobx-react';
-
-export type Message = {
-    text: string;
-    name: string;
-    id: string;
-    socketID: string;
-    roomId: number
-}
+import { Message } from '../../utils/types';
 
 const ChatRoom = observer(({ socket } : { socket : Socket }) => {
     const [messages, setMessages] = useState<Message []>([]);

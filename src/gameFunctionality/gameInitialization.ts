@@ -1,14 +1,7 @@
-import { team } from "../routes/BoardGame";
 import { wordBank } from "../wordBark";
 import { LoaderFunction } from "react-router-dom";
 import { Socket } from "socket.io-client";
-import { gamePropertiesObj } from "../types/gamePropertiesObj";
-
-export type cardData = {
-    word: string;
-    team: team;
-    clicked: boolean;
-}
+import { cardData, gamePropertiesObj, team } from "../utils/types";
 
 function shuffle(wordBank: string [] | cardData []) {
     let currentIndex = wordBank.length,

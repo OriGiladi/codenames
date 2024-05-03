@@ -1,8 +1,7 @@
 import { Socket } from "socket.io-client";
-import { team } from "../BoardGame";
 import FlipedCard from "./FlipedCard";
 import UnflipedCard from "./UnflipedCard";
-
+import { team } from "../../utils/types";
 
 function Card({clue, team, clicked, flipCard, disable, socket}: 
     {clue: string, key: number, team: team, clicked: boolean, flipCard: (clue: string, socket: Socket) => void, disable: boolean, socket: Socket}) {

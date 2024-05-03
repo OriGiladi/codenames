@@ -1,7 +1,6 @@
 import { Socket } from "socket.io-client";
 import rootStore from "../rootStore";
-import { team } from "../routes/BoardGame";
-import { gamePropertiesObj } from "../types/gamePropertiesObj";
+import { gamePropertiesObj, team } from "../utils/types";
 const { gamePropertiesStore } = rootStore
 
 const HandleZeroGuessesRemaining = (otherTeam: team, socket: Socket) => {
@@ -84,5 +83,5 @@ export const flipCard = (clue: string, socket: Socket) => {
         socket.emit("updateGameProperties", {
             gameArray: gameArray
         } as gamePropertiesObj)
-        }
+    }
 }

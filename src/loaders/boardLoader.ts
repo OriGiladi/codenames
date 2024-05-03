@@ -1,8 +1,6 @@
-import { cardData } from "../gameFunctionality/gameInitialization"
 import rootStore from "../rootStore"
 import { userRoles } from "../utils/constants"
-import { clueObj, team } from "../routes/BoardGame"
-import { gamePropertiesObj } from "../types/gamePropertiesObj"
+import { cardData, clueObj, gamePropertiesObj, team } from "../utils/types"
 const { gamePropertiesStore, userStore } = rootStore
 export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setGameArray(data.gameArray as cardData[][])

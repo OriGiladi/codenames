@@ -1,10 +1,10 @@
-import { clueObj } from './BoardGame';
 import rootStore from '../rootStore';
 import CodeMasterView from './Views/CodeMasterView';
 import PlayerView from './Views/PlayerView';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Socket } from 'socket.io-client';
+import { clueObj } from '../utils/types';
 
 const { gamePropertiesStore } = rootStore;
 
