@@ -8,6 +8,7 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setGameArray(data.gameArray as cardData[][])
     gamePropertiesStore.setFirstTeamWords(data.firstTeamWords as string[])
     gamePropertiesStore.setSecondTeamWords(data.secondTeamWords as string[])
+    gamePropertiesStore.setFirstTeamUnguessedWords(data.firstTeamUnguessedWords as string[])
     gamePropertiesStore.setCivilianWords(data.civilianWords as string[])
     gamePropertiesStore.setAssassinWord(data.assassinWord as string[])
     gamePropertiesStore.setTurn(data.turn as team)
@@ -27,5 +28,6 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setSecondTeamScore(data.secondTeamScore as number)
     gamePropertiesStore.setFirstTeamClues(data.firstTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamClues(data.secondTeamClues as clueObj[])
+    gamePropertiesStore.setSecondTeamUnguessedWords(data.secondTeamUnguessedWords as string[])
     gamePropertiesStore.setGameOver(data.gameOver as boolean)  
 }

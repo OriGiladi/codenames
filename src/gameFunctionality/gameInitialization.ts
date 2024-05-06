@@ -98,6 +98,7 @@ export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | 
     const gameStartProperties: gamePropertiesObj = { 
         gameArray: gameArray,
         firstTeamWords: firstTeamWords,
+        firstTeamUnguessedWords: firstTeamWords,
         secondTeamWords: secondTeamWords,
         civilianWords: civilianWords,
         assassinWord: assassinWord,
@@ -112,6 +113,7 @@ export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | 
         secondTeamScore: 8,
         firstTeamClues: [],
         secondTeamClues: [],
+        secondTeamUnguessedWords: secondTeamWords,
         gameOver: false
     }
     socket.emit('gameStart', gameStartProperties);

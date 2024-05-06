@@ -7,7 +7,7 @@ export const flipCard = (clue: string, socket: Socket) => {
     const gameArray = [...gamePropertiesStore.gameArray];
     let nextTurn: team | null = null
     let otherTeam;
-    const guessesRemining = (gamePropertiesStore.guessesRemaining as number) 
+    const guessesRemining = (gamePropertiesStore.guessesRemaining as number)
     const firstTeamScore = (gamePropertiesStore.firstTeamScore as number)
     const secondTeamScore = (gamePropertiesStore.secondTeamScore as number)
     gamePropertiesStore.turn === "red" ? (otherTeam = "blue") : (otherTeam = "red");
@@ -70,4 +70,28 @@ export const flipCard = (clue: string, socket: Socket) => {
             socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
             socket.emit("updateGameProperties", {turn: otherTeam as team} as gamePropertiesObj)
         }
+
+        if (gamePropertiesStore.firstTeamWords?.includes(clue)){
+            const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue);
+            if (indexOfTheWord !== -1 && typeof indexOfTheWord === "number") {
+                const updatedUnguessedWords = [...(gamePropertiesStore.firstTeamUnguessedWords || [])];
+                updatedUnguessedWords.splice(indexOfTheWord, 1);
+                console.log("index " + indexOfTheWord)
+                console.log("ariel first " + updatedUnguessedWords)
+                socket.emit("updateGameProperties", { firstTeamUnguessedWords: updatedUnguessedWords });
+            }
+        } else if (gamePropertiesStore.secondTeamWords?.includes(clue)){
+            const indexOfTheWord = gamePropertiesStore.secondTeamUnguessedWords?.indexOf(clue);
+            if (indexOfTheWord !== -1 && typeof indexOfTheWord === "number") {
+                const updatedUnguessedWords = [...(gamePropertiesStore.secondTeamUnguessedWords || [])];
+                updatedUnguessedWords.splice(indexOfTheWord, 1);
+                console.log("index " + indexOfTheWord)
+                console.log("ariel second" + updatedUnguessedWords)
+                socket.emit("updateGameProperties", { secondTeamUnguessedWords: updatedUnguessedWords });
+            }
+        }
+        
+        
+        // console.log(gamePropertiesStore.firstTeamUnguessedWords)
+        // console.log(gamePropertiesStore.secondTeamUnguessedWords)
 }

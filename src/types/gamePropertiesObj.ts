@@ -4,6 +4,7 @@ import { clueObj, team } from "../routes/BoardGame";
 export type gamePropertiesObj = {
     gameArray?: cardData[][];
     firstTeamWords?: string[];
+    firstTeamUnguessedWords?: string[];
     secondTeamWords?: string[];
     civilianWords?: string[];
     assassinWord?: string [];
@@ -18,5 +19,6 @@ export type gamePropertiesObj = {
     secondTeamScore?: number;
     firstTeamClues?: clueObj [];
     secondTeamClues?: clueObj [];
+    secondTeamUnguessedWords?: string []
     gameOver?: boolean;
 };

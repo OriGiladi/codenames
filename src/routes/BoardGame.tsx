@@ -38,11 +38,11 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                     <div>turn: {gamePropertiesStore.turn}</div>
                     <div>guesses remaining: {gamePropertiesStore.guessesRemaining}</div>
                     <Header
-                        firstTeamWords={gamePropertiesStore.firstTeamWords as string[]}
+                        firstTeamWords={gamePropertiesStore.firstTeamUnguessedWords as string[]}
                         firstTeam={gamePropertiesStore.firstTeam as team}
                         civilianWords={gamePropertiesStore.civilianWords as string[]}
                         assassinWord={gamePropertiesStore.assassinWord as string[]}
-                        secondTeamWords={gamePropertiesStore.secondTeamWords as string[]}
+                        secondTeamWords={gamePropertiesStore.secondTeamUnguessedWords as string[]}
                         secondTeam={gamePropertiesStore.secondTeam as team}
                         socket={socket}
                     />
