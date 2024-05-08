@@ -1,16 +1,13 @@
 import { RootStore } from "."
 import { makeAutoObservable } from "mobx";
+import { role, team } from "../utils/types";
 
-export type role = "code-master" | "player"// TODO: move this type to a constants.ts file
-export const userRoles = {
-    CODE_MASTER: "code-master",
-    PLAYER: "player"
-} // TODO: move this type to a constants.ts file
 class UserStore {
     rootstore : RootStore
     userName: string = "";
     chatRoomId: number = 0
     role?: role
+    team?: team
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
         makeAutoObservable(this);
@@ -23,6 +20,9 @@ class UserStore {
     }
     setRole(role: role) {
         this.role = role
+    }
+    setTeam(team: team) {
+        this.team = team
     }
 }
 export default UserStore

@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
+import { socketUser } from '../../utils/types';
 
-export type socketUser = {
-    userName: string;
-    socketID: string;
-}
 const ChatBar = ({ socket } : { socket: Socket }) => {
     const [users, setUsers] = useState<socketUser []>([]);
 
     useEffect(() => {
-        socket.on('newUserResponse', (data) => setUsers(data));
+        socket.on('updatingUsersResponse', (data) => setUsers(data));
     }, [socket, users]);
 
     return (

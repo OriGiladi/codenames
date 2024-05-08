@@ -1,19 +1,24 @@
 import { observer } from "mobx-react";
-import { clueObj, team } from "./BoardGame";
+import rootStore from "../rootStore";
 import { Socket } from "socket.io-client";
-const Player = observer(({ name, score, clues, passTurn, currentTurn, socket }: { 
-    name: team, 
+import { clueObj, team } from "../utils/types";
+import { userRoles } from "../utils/constants";
+const { userStore, gamePropertiesStore } = rootStore
+const Player = observer(({ team, score, clues, passTurn, currentTurn, socket }: { 
+    team: team, 
     score: number, 
     clues: clueObj[], 
     passTurn: (socket: Socket) => void, 
-    currentTurn: team,
+    currentTurn: team, 
     socket: Socket
 }) => {
-    const isOff = name !== currentTurn;
+    const isOff = team !== currentTurn ||
+    userStore.role !== userRoles.PLAYER ||
+    gamePropertiesStore.turn !== userStore.team
     
     return (
         <div className="col-md-1">
-            <p>{name.toUpperCase()} TEAM</p>
+            <p>{team.toUpperCase()} TEAM</p>
             <p>Remaining: {score}</p>
             {clues.map((clueObj, index) => (
                 <p key={index}> {clueObj.clue} ({clueObj.num}) </p>

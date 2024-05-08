@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Message } from './ChatRoom';
 import rootStore from "../../rootStore";
+import { Message } from '../../utils/types';
 const { userStore } = rootStore
 
 const ChatBody = ( { messages } : { messages: Message [] }) => {

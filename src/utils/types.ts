@@ -1,6 +1,12 @@
-import { cardData } from "../gameFunctionality/gameInitialization";
-import { clueObj, team } from "../routes/BoardGame";
 
+
+export type role = "code-master" | "player"
+export type team = "red" | "blue" | "assassin" | "civilian"
+export type cardData = {
+    word: string;
+    team: team;
+    clicked: boolean;
+}
 export type gamePropertiesObj = {
     gameArray?: cardData[][];
     firstTeamWords?: string[];
@@ -12,7 +18,6 @@ export type gamePropertiesObj = {
     firstTeam?: team;
     secondTeam?: team;
     codeMasterView?: boolean;
-    guessPhase?: boolean;
     guessesRemaining?: number;
     allDisable?: boolean;
     firstTeamScore?: number;
@@ -22,3 +27,18 @@ export type gamePropertiesObj = {
     secondTeamUnguessedWords?: string []
     gameOver?: boolean;
 };
+export type clueObj = {
+    clue: string;
+    num: number;
+};
+export type Message = {
+    text: string;
+    name: string;
+    id: string;
+    socketID: string;
+    roomId: number
+}
+export type socketUser = {
+    userName: string;
+    socketID: string;
+}

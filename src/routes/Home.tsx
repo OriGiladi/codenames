@@ -5,16 +5,19 @@ import rootStore from '../rootStore';
 import { Socket } from 'socket.io-client';
 import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import { role } from '../rootStore/UserStore';
+import { role, team } from '../utils/types';
 const { userStore } = rootStore
 const Home = observer(({ socket } : { socket: Socket }) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [chatRoomID, setChatRoomID] = useState('');
-    const [role, setRole] = useState<role | undefined>(undefined);
-    const InsertUserName = () => {
+    const [role, setRole] = useState<role | undefined>();
+    const [team, setTeam] = useState<team | undefined>();
+
+    const InsertUserProperties = () => {
         userStore.setUserName(userName)
         userStore.setRole(role as role)
+        userStore.setTeam(team as team)
         socket.connect()
         socket.on('connect', () => {
             socket.emit('newUser', { userName, socketID: socket.id });
@@ -31,13 +34,21 @@ const Home = observer(({ socket } : { socket: Socket }) => {
             <div>enter your chatroom</div>
             <input onChange={(e) => {setChatRoomID(e.target.value)}}></input>
             <div>enter your role</div>
-            <RadioGroup onChange={setRole} value={role}>
+            <RadioGroup onChange={setRole as React.Dispatch<React.SetStateAction<string | undefined>>} 
+            value={role}>
                 <Stack direction='row'>
                     <Radio value='code-master'>Code Master</Radio>
                     <Radio value='player'>Player</Radio>
                 </Stack>
             </RadioGroup>
-            <button onClick={() => {InsertUserName()}}>insert</button>
+            <RadioGroup onChange={setTeam as React.Dispatch<React.SetStateAction<string | undefined>>} 
+            value={team}>
+                <Stack direction='row'>
+                    <Radio value='red'>Red</Radio>
+                    <Radio value='blue'>Blue</Radio>
+                </Stack>
+            </RadioGroup>
+            <button onClick={() => {InsertUserProperties()}}>insert</button>
         </>
     )
 })

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-export type team = "red" | "blue" | "assassin" | "civilian"
 import { observer } from 'mobx-react';
 import { Socket } from 'socket.io-client';
 import { boardLoader } from '../loaders/boardLoader';
@@ -11,13 +10,9 @@ import Header from './Header/Header';
 import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
+import { clueObj, team } from '../utils/types';
 
 const { gamePropertiesStore } = rootStore;
-
-export type clueObj = {
-    clue: string;
-    num: number;
-};
 
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);
@@ -52,7 +47,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
 
                         <div className="row">
                             <Player
-                                name={gamePropertiesStore.firstTeam as team}
+                                team={gamePropertiesStore.firstTeam as team}
                                 score={gamePropertiesStore.firstTeamScore as number}
                                 clues={gamePropertiesStore.firstTeamClues as clueObj[]}
                                 passTurn={passTurn}
@@ -80,12 +75,12 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                             
 
                             <Player
-                                name={gamePropertiesStore.secondTeam as team}
+                                team={gamePropertiesStore.secondTeam as team}
                                 score={gamePropertiesStore.secondTeamScore as number}
                                 clues={gamePropertiesStore.secondTeamClues as clueObj[]}
                                 passTurn={passTurn}
                                 currentTurn={gamePropertiesStore.turn as team}
-                                socket={socket}
+                                socket={socket} 
                             />
                         </div>
                     </div>

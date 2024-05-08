@@ -1,16 +1,6 @@
-import { team } from "../routes/BoardGame";
-import rootStore from "../rootStore";
-const { gamePropertiesStore } = rootStore
 import { wordBank } from "../wordBark";
-import { LoaderFunction } from "react-router-dom";
 import { Socket } from "socket.io-client";
-import { gamePropertiesObj } from "../types/gamePropertiesObj";
-
-export type cardData = {
-    word: string;
-    team: team;
-    clicked: boolean;
-}
+import { cardData, gamePropertiesObj, team } from "../utils/types";
 
 function shuffle(wordBank: string [] | cardData []) {
     let currentIndex = wordBank.length,
@@ -32,7 +22,7 @@ function shuffle(wordBank: string [] | cardData []) {
     return wordBank;
 }
 
-export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | null{
+export function getInitialGameProperties(socket: Socket){
     let startTurn: team;
     let secondTurn: team;
     Math.round(Math.random()) > 0 ? (startTurn = "blue") : (startTurn = "red");
@@ -106,7 +96,6 @@ export function getInitialGameProperties(socket: Socket): LoaderFunction<any> | 
         firstTeam: startTurn,
         secondTeam: secondTurn,
         codeMasterView: false,
-        guessPhase: false,
         guessesRemaining: 0,
         allDisable: true,
         firstTeamScore: 9,

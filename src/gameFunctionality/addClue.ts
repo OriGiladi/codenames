@@ -1,7 +1,6 @@
 import { Socket } from "socket.io-client";
 import rootStore from "../rootStore";
-import { clueObj } from "../routes/BoardGame";
-import { gamePropertiesObj } from "../types/gamePropertiesObj";
+import { gamePropertiesObj, clueObj } from "../utils/types";
 const { gamePropertiesStore } = rootStore
 
 export function addClue(clueObj: clueObj, socket: Socket) {
@@ -10,7 +9,6 @@ export function addClue(clueObj: clueObj, socket: Socket) {
         clues.push(clueObj);
         const addClueProperties: gamePropertiesObj = {
             firstTeamClues: clues,
-            guessPhase: true,
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num
@@ -21,7 +19,6 @@ export function addClue(clueObj: clueObj, socket: Socket) {
         clues.push(clueObj);
         const addClueProperties: gamePropertiesObj = {
             secondTeamClues: clues,
-            guessPhase: true,
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num
