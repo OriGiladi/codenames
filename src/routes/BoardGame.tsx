@@ -129,7 +129,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 clues={gamePropertiesStore.secondTeamClues as clueObj[]}
                                 passTurn={passTurn}
                                 currentTurn={gamePropertiesStore.turn as team}
-                                socket={socket}
+                                socket={socket} 
                             />
                         </div>
                     </div>
