@@ -10,6 +10,7 @@ export type cardData = {
 export type gamePropertiesObj = {
     gameArray?: cardData[][];
     firstTeamWords?: string[];
+    firstTeamUnguessedWords?: string[];
     secondTeamWords?: string[];
     civilianWords?: string[];
     assassinWord?: string [];
@@ -23,6 +24,7 @@ export type gamePropertiesObj = {
     secondTeamScore?: number;
     firstTeamClues?: clueObj [];
     secondTeamClues?: clueObj [];
+    secondTeamUnguessedWords?: string []
     gameOver?: boolean;
 };
 export type clueObj = {

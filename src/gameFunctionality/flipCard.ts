@@ -80,8 +80,30 @@ export const flipCard = (clue: string, socket: Socket) => {
                 }
             }
         }
-        socket.emit("updateGameProperties", {
-            gameArray: gameArray
-        } as gamePropertiesObj)
-    }
+        socket.emit("updateGameProperties", {gameArray: gameArray} as gamePropertiesObj)
+        console.log("nextTurn:", nextTurn)
+        }
+        if (gamePropertiesStore.firstTeamWords?.includes(clue)){
+            const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue) as number;
+            if (indexOfTheWord !== - 1) {
+                const updatedUnguessedWords = [...(gamePropertiesStore.firstTeamUnguessedWords as string[])];
+                updatedUnguessedWords.splice(indexOfTheWord, 1);
+                console.log("index " + indexOfTheWord)
+                console.log("ariel first " + updatedUnguessedWords)
+                socket.emit("updateGameProperties", { firstTeamUnguessedWords: updatedUnguessedWords });
+            }
+        } else if (gamePropertiesStore.secondTeamWords?.includes(clue)){
+            const indexOfTheWord = gamePropertiesStore.secondTeamUnguessedWords?.indexOf(clue) as number;
+            if (indexOfTheWord !== -1) {
+                const updatedUnguessedWords = [...(gamePropertiesStore.secondTeamUnguessedWords as string[])];
+                updatedUnguessedWords.splice(indexOfTheWord, 1);
+                console.log("index " + indexOfTheWord)
+                console.log("ariel second" + updatedUnguessedWords)
+                socket.emit("updateGameProperties", { secondTeamUnguessedWords: updatedUnguessedWords });
+            }
+        }
+        
+        
+        // console.log(gamePropertiesStore.firstTeamUnguessedWords)
+        // console.log(gamePropertiesStore.secondTeamUnguessedWords)
 }

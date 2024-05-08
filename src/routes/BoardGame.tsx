@@ -33,11 +33,11 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                     <div>turn: {gamePropertiesStore.turn}</div>
                     <div>guesses remaining: {gamePropertiesStore.guessesRemaining}</div>
                     <Header
-                        firstTeamWords={gamePropertiesStore.firstTeamWords as string[]}
+                        firstTeamWords={gamePropertiesStore.firstTeamUnguessedWords as string[]}
                         firstTeam={gamePropertiesStore.firstTeam as team}
                         civilianWords={gamePropertiesStore.civilianWords as string[]}
                         assassinWord={gamePropertiesStore.assassinWord as string[]}
-                        secondTeamWords={gamePropertiesStore.secondTeamWords as string[]}
+                        secondTeamWords={gamePropertiesStore.secondTeamUnguessedWords as string[]}
                         secondTeam={gamePropertiesStore.secondTeam as team}
                         socket={socket}
                     />
@@ -54,74 +54,25 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 currentTurn={gamePropertiesStore.turn as team}
                                 socket={socket}
                             />
-
                             <div className="col-md-10">
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[0].map((wordObj) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[1].map((wordObj) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[2].map((wordObj) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[3].map((wordObj) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[4].map((wordObj) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
+                                {gamePropertiesStore.gameArray.map((deck, deckIndex) => (
+                                    <div className="card-deck" key={deckIndex}>
+                                        {deck.map((wordObj, index) => (
+                                            <Card
+                                                clue={wordObj.word}
+                                                key={index}
+                                                team={wordObj.team}
+                                                clicked={wordObj.clicked}
+                                                flipCard={flipCard}
+                                                disable={gamePropertiesStore.allDisabled as boolean}
+                                                socket={socket}
+                                            />
+                                        ))}
+                                    </div>
+                                ))}
                             </div>
+
+                            
 
                             <Player
                                 team={gamePropertiesStore.secondTeam as team}

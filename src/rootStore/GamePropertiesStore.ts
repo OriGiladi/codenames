@@ -13,6 +13,7 @@ class GamePropertiesStore {
     firstTeamClues?: clueObj []
     firstTeamScore?: number
     firstTeamWords?: string []
+    firstTeamUnguessedWords?: string []
     gameArray: cardData [] [] = []
     gameOver?: boolean
     guessesRemaining?: number
@@ -20,6 +21,7 @@ class GamePropertiesStore {
     secondTeamClues?: clueObj []
     secondTeamScore?: number
     secondTeamWords?: string []
+    secondTeamUnguessedWords?: string []
     turn?: team
 
     constructor(rootStore: RootStore) {
@@ -51,6 +53,9 @@ class GamePropertiesStore {
     setFirstTeamWords(firstTeamWords: string []) {
         this.firstTeamWords = firstTeamWords
     }
+    setFirstTeamUnguessedWords(firstTeamUnguessedWords: string []) {
+        this.firstTeamUnguessedWords = firstTeamUnguessedWords
+    }
     setGameArray(gameArray: cardData [] []) {
         this.gameArray = gameArray
     }
@@ -71,6 +76,9 @@ class GamePropertiesStore {
     }
     setSecondTeamWords(secondTeamWords: string []) {
         this.secondTeamWords = secondTeamWords
+    }
+    setSecondTeamUnguessedWords(secondTeamUnguessedWords: string []) {
+        this.secondTeamUnguessedWords = secondTeamUnguessedWords
     }
     setTurn(turn: team) {
         this.turn = turn

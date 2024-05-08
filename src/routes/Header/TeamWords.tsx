@@ -6,7 +6,7 @@ const TeamWords = ({ team, TeamWords, civilianWords, assassinWord }:
         <div className="col-md-4 clues" style={{ backgroundColor: team }}>
             <p>
                 Words:
-                {TeamWords.map((word, index) => <span key={index}> {word} </span>)}
+                {TeamWords.map((word, index) => <span key={index}> {word} </span>)} 
             </p>
             <p>
                 Civilian Words:
