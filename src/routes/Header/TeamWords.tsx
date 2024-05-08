@@ -1,4 +1,4 @@
-import { team } from "../BoardGame";
+import { team } from '../../utils/types'
 
 const TeamWords = ({ team, TeamWords, civilianWords, assassinWord }: 
     {team: team, TeamWords: string [], civilianWords: string [], assassinWord: string []}) => {

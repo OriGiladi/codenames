@@ -1,14 +1,6 @@
-import { team } from "../routes/BoardGame";
-import rootStore from "../rootStore";
-const { gamePropertiesStore } = rootStore
 import { wordBank } from "../wordBark";
-import { LoaderFunction } from "react-router-dom";
-
-export type cardData = {
-    word: string;
-    team: team;
-    clicked: boolean;
-}
+import { Socket } from "socket.io-client";
+import { cardData, gamePropertiesObj, team } from "../utils/types";
 
 function shuffle(wordBank: string [] | cardData []) {
     let currentIndex = wordBank.length,
@@ -30,7 +22,7 @@ function shuffle(wordBank: string [] | cardData []) {
     return wordBank;
 }
 
-export function getInitialGameProperties(): LoaderFunction<any> | null{
+export function getInitialGameProperties(socket: Socket){
     let startTurn: team;
     let secondTurn: team;
     Math.round(Math.random()) > 0 ? (startTurn = "blue") : (startTurn = "red");
@@ -93,24 +85,24 @@ export function getInitialGameProperties(): LoaderFunction<any> | null{
         const row = arrayofWordObjects.splice(0, 5);
         gameArray.push(row)
     }
-    
-        gamePropertiesStore.setGameArray(gameArray)
-        gamePropertiesStore.setFirstTeamWords(firstTeamWords)
-        gamePropertiesStore.setSecondTeamWords(secondTeamWords)
-        gamePropertiesStore.setCivilianWords(civilianWords)
-        gamePropertiesStore.setAssassinWord(assassinWord)
-        gamePropertiesStore.setTurn(startTurn)
-        gamePropertiesStore.setFirstTeam(startTurn)
-        gamePropertiesStore.setSecondTeam(secondTurn)
-        gamePropertiesStore.setCodeMasterView(false)
-        gamePropertiesStore.setGuessPhase(false)
-        gamePropertiesStore.setGuessesRemaining(0)
-        gamePropertiesStore.setAllDisable(true)
-        gamePropertiesStore.setFirstTeamScore(9)
-        gamePropertiesStore.setSecondTeamScore(8)
-        gamePropertiesStore.setFirstTeamClues([])
-        gamePropertiesStore.setSecondTeamClues([])
-        gamePropertiesStore.setGameOver(false)   
-        
+    const gameStartProperties: gamePropertiesObj = { 
+        gameArray: gameArray,
+        firstTeamWords: firstTeamWords,
+        secondTeamWords: secondTeamWords,
+        civilianWords: civilianWords,
+        assassinWord: assassinWord,
+        turn: startTurn,
+        firstTeam: startTurn,
+        secondTeam: secondTurn,
+        codeMasterView: false,
+        guessesRemaining: 0,
+        allDisable: true,
+        firstTeamScore: 9,
+        secondTeamScore: 8,
+        firstTeamClues: [],
+        secondTeamClues: [],
+        gameOver: false
+    }
+    socket.emit('gameStart', gameStartProperties);
         return null // makes it able to be used as a loader
 }

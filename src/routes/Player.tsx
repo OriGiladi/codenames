@@ -1,23 +1,30 @@
 import { observer } from "mobx-react";
-import { clueObj, team } from "./BoardGame";
-const Player = observer(({ name, score, clues, passTurn, currentTurn }: { 
-    name: team, 
+import rootStore from "../rootStore";
+import { Socket } from "socket.io-client";
+import { clueObj, team } from "../utils/types";
+import { userRoles } from "../utils/constants";
+const { userStore, gamePropertiesStore } = rootStore
+const Player = observer(({ team, score, clues, passTurn, currentTurn, socket }: { 
+    team: team, 
     score: number, 
     clues: clueObj[], 
-    passTurn: () => void, 
-    currentTurn: team 
+    passTurn: (socket: Socket) => void, 
+    currentTurn: team, 
+    socket: Socket
 }) => {
-    const isOff = name !== currentTurn;
+    const isOff = team !== currentTurn ||
+    userStore.role !== userRoles.PLAYER ||
+    gamePropertiesStore.turn !== userStore.team
     
     return (
         <div className="col-md-1">
-            <p>{name.toUpperCase()} TEAM</p>
+            <p>{team.toUpperCase()} TEAM</p>
             <p>Remaining: {score}</p>
             {clues.map((clueObj, index) => (
                 <p key={index}> {clueObj.clue} ({clueObj.num}) </p>
             ))}
             <button style={{backgroundColor:"#ec971f"}} disabled={isOff} 
-            type="button" className="btn btn-warning" onClick={passTurn}>
+            type="button" className="btn btn-warning" onClick={() => { passTurn(socket) }}>
                 Pass
             </button>
         </div>
