@@ -59,74 +59,25 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 currentTurn={gamePropertiesStore.turn as team}
                                 socket={socket}
                             />
-
                             <div className="col-md-10">
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[0].map((wordObj, index) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[1].map((wordObj, index) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[2].map((wordObj, index) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[3].map((wordObj, index) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="card-deck">
-                                    {gamePropertiesStore.gameArray[4].map((wordObj, index) => (
-                                        <Card
-                                            clue={wordObj.word}
-                                            key={Math.floor(Math.random() * 10000) + 1}
-                                            team={wordObj.team}
-                                            clicked={wordObj.clicked}
-                                            flipCard={flipCard}
-                                            disable={gamePropertiesStore.allDisabled as boolean}
-                                            socket={socket}
-                                        />
-                                    ))}
-                                </div>
+                                {gamePropertiesStore.gameArray.map((deck, deckIndex) => (
+                                    <div className="card-deck" key={deckIndex}>
+                                        {deck.map((wordObj, index) => (
+                                            <Card
+                                                clue={wordObj.word}
+                                                key={index}
+                                                team={wordObj.team}
+                                                clicked={wordObj.clicked}
+                                                flipCard={flipCard}
+                                                disable={gamePropertiesStore.allDisabled as boolean}
+                                                socket={socket}
+                                            />
+                                        ))}
+                                    </div>
+                                ))}
                             </div>
+
+                            
 
                             <Player
                                 name={gamePropertiesStore.secondTeam as team}
