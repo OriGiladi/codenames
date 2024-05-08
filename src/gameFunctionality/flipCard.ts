@@ -84,18 +84,18 @@ export const flipCard = (clue: string, socket: Socket) => {
         console.log("nextTurn:", nextTurn)
         }
         if (gamePropertiesStore.firstTeamWords?.includes(clue)){
-            const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue);
-            if (indexOfTheWord !== -1 && typeof indexOfTheWord === "number") {
-                const updatedUnguessedWords = [...(gamePropertiesStore.firstTeamUnguessedWords || [])];
+            const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue) as number;
+            if (indexOfTheWord !== - 1) {
+                const updatedUnguessedWords = [...(gamePropertiesStore.firstTeamUnguessedWords as string[])];
                 updatedUnguessedWords.splice(indexOfTheWord, 1);
                 console.log("index " + indexOfTheWord)
                 console.log("ariel first " + updatedUnguessedWords)
                 socket.emit("updateGameProperties", { firstTeamUnguessedWords: updatedUnguessedWords });
             }
         } else if (gamePropertiesStore.secondTeamWords?.includes(clue)){
-            const indexOfTheWord = gamePropertiesStore.secondTeamUnguessedWords?.indexOf(clue);
-            if (indexOfTheWord !== -1 && typeof indexOfTheWord === "number") {
-                const updatedUnguessedWords = [...(gamePropertiesStore.secondTeamUnguessedWords || [])];
+            const indexOfTheWord = gamePropertiesStore.secondTeamUnguessedWords?.indexOf(clue) as number;
+            if (indexOfTheWord !== -1) {
+                const updatedUnguessedWords = [...(gamePropertiesStore.secondTeamUnguessedWords as string[])];
                 updatedUnguessedWords.splice(indexOfTheWord, 1);
                 console.log("index " + indexOfTheWord)
                 console.log("ariel second" + updatedUnguessedWords)
