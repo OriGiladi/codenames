@@ -83,14 +83,6 @@ export const flipCard = (clue: string, socket: Socket) => {
         socket.emit("updateGameProperties", {gameArray: gameArray} as gamePropertiesObj)
         console.log("nextTurn:", nextTurn)
         }
-
-        if (gamePropertiesStore.guessesRemaining === 1) { // TODO: shoul'd work for zero but for some reason working for onew fix it
-            alert("out of guesses, switching turn")
-            socket.emit("updateGameProperties", {guessPhase: false} as gamePropertiesObj)
-            socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
-            socket.emit("updateGameProperties", {turn: otherTeam as team} as gamePropertiesObj)
-        }
-
         if (gamePropertiesStore.firstTeamWords?.includes(clue)){
             const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue);
             if (indexOfTheWord !== -1 && typeof indexOfTheWord === "number") {
