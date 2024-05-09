@@ -106,5 +106,5 @@ export function getInitialGameProperties(socket: Socket){
         gameOver: false
     }
     socket.emit('gameStart', gameStartProperties);
-        return null // makes it able to be used as a loader
+    return null // makes it able to be used as a loader
 }

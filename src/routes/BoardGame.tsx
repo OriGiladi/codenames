@@ -72,8 +72,6 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 ))}
                             </div>
 
-                            
-
                             <Player
                                 team={gamePropertiesStore.secondTeam as team}
                                 score={gamePropertiesStore.secondTeamScore as number}

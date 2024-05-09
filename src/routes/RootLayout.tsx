@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom"
 import { observer } from "mobx-react"
-import { Socket } from "socket.io-client"
 import NavBar from "./NavBar"
 
-const RootLayout = observer(({socket}: {socket: Socket}) => {
+const RootLayout = observer(() => {
     return (
         <> 
-            <NavBar socket={socket} />
+            <NavBar />
             <Outlet />
         </>
     )

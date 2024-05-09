@@ -2,10 +2,9 @@ import { observer } from 'mobx-react'
 import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
-import { Socket } from 'socket.io-client';
-import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { role, team } from '../utils/types';
+import { Socket } from 'socket.io-client';
 const { userStore } = rootStore
 const Home = observer(({ socket } : { socket: Socket }) => {
     const navigate = useNavigate();
@@ -24,8 +23,7 @@ const Home = observer(({ socket } : { socket: Socket }) => {
         });
         socket.emit("join_room", chatRoomID)
         userStore.setChatRoomId(Number(chatRoomID))
-        getInitialGameProperties(socket)
-        navigate('/board');
+        navigate('/waitingRoom');
     }
     return (
         <>
