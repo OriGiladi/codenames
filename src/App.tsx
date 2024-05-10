@@ -8,6 +8,7 @@ import {io, Socket } from 'socket.io-client';
 import Home from './routes/Home'
 import WaitingRoom from './routes/WaitingRoom'
 
+
 const socket: Socket = io('http://localhost:3002', {
   autoConnect: false
 });
