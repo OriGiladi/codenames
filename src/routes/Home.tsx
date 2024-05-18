@@ -2,10 +2,10 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
-import { Socket } from 'socket.io-client';
 import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { role, team } from '../utils/types';
+import { Socket } from 'socket.io-client';
 
 const { userStore } = rootStore;
 
@@ -20,21 +20,22 @@ const Home = observer(({ socket }: { socket: Socket }) => {
         userStore.setUserName(userName);
         userStore.setRole(role as role);
         userStore.setTeam(team as team);
+        socket.auth = { userName };
         socket.connect();
 
-        socket.on('session', ({ sessionID, userID }) => {
+        socket.on('session', ({ sessionID }) => {
             // attach the session ID to the next reconnection attempts
             socket.auth = { sessionID };
             // store it in the localStorage
             localStorage.setItem('sessionID', sessionID);
             // save the ID of the user
-            socket.userID = userID;
+            socket.userName = userName
+            socket.emit('newUser', { userName: socket.userName || "Ori", socketID: socket.id });
+            socket.emit('join_room', chatRoomID);
+            userStore.setChatRoomId(Number(chatRoomID));
+            getInitialGameProperties(socket);
+            navigate('/board');
         });
-
-        socket.emit('join_room', chatRoomID);
-        userStore.setChatRoomId(Number(chatRoomID));
-        getInitialGameProperties(socket);
-        navigate('/board');
     };
 
     return (

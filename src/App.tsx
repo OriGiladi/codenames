@@ -7,6 +7,7 @@ import ChatRoom from './routes/ChatRoom/ChatRoom'
 import {io, Socket } from 'socket.io-client';
 import Home from './routes/Home'
 
+
 const socket: Socket = io('http://localhost:3002', {
   autoConnect: false
 });

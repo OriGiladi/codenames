@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 
 
 export type role = "code-master" | "player"
@@ -41,4 +42,7 @@ export type Message = {
 export type socketUser = {
     userName: string;
     socketID: string;
+}
+export interface SessionSocket extends Socket {
+    userID : string
 }
