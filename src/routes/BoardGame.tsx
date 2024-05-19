@@ -30,7 +30,6 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
-                console.log("herer")
                 socket.emit('newUser', { userName: userStore.userName || "Ori", socketID: socket.id });
             });
            // socket.emit('join_room', chatRoomID);

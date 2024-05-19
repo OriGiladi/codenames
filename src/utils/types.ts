@@ -44,5 +44,7 @@ export type socketUser = {
     socketID: string;
 }
 export interface SessionSocket extends Socket {
-    userID : string
+    userID? : string
+    userName?: string
+    sessionID?: string
 }

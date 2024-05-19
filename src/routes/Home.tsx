@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
 import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import { role, team } from '../utils/types';
-import { Socket } from 'socket.io-client';
+import { SessionSocket, role, team } from '../utils/types';
 
 const { userStore } = rootStore;
 
-const Home = observer(({ socket }: { socket: Socket }) => {
+const Home = observer(({ socket }: { socket: SessionSocket }) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [chatRoomID, setChatRoomID] = useState('');
