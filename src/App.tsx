@@ -6,6 +6,8 @@ import BoardGame from './routes/BoardGame'
 import ChatRoom from './routes/ChatRoom/ChatRoom'
 import {io, Socket } from 'socket.io-client';
 import Home from './routes/Home'
+import WaitingRoom from './routes/WaitingRoom'
+
 
 const socket: Socket = io('http://localhost:3002', {
   autoConnect: false
@@ -16,7 +18,7 @@ function App() {
       <Routes>
         <Route 
         path="/" 
-        element={<RootLayout socket={socket} />}>
+        element={<RootLayout />}>
             <Route 
             index 
             element={<Home socket={socket}/>} 
@@ -24,6 +26,10 @@ function App() {
             <Route 
             path='/chat' 
             element={<ChatRoom socket={socket} />} 
+            />
+            <Route 
+            path='/waitingRoom' 
+            element={<WaitingRoom socket={socket} />} 
             />
             <Route 
             path='/board' 

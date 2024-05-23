@@ -8,6 +8,7 @@ class UserStore {
     chatRoomId: number = 0
     role?: role
     team?: team
+    hasChosenRole: boolean = false
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
         makeAutoObservable(this);
@@ -24,5 +25,9 @@ class UserStore {
     setTeam(team: team) {
         this.team = team
     }
+    setHasChosenRole(hasChosenRole: boolean) {
+        this.hasChosenRole = hasChosenRole
+    }
+
 }
 export default UserStore
