@@ -11,18 +11,31 @@ import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
 import { clueObj, team } from '../utils/types';
+import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 
-const { gamePropertiesStore } = rootStore;
+const { gamePropertiesStore, userStore } = rootStore;
 
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);
-
+    // TODO: try to nerrow down useEffects
     useEffect(() => {
         socket.on('updateGamePropertiesResponse', (data) => {
             boardLoader(data);
             setLoading(false); // Data has been loaded, sets loading to false
         });
     }, [socket]);
+    useEffect(() => {
+        const sessionID = localStorage.getItem('sessionID');
+        if (sessionID) {
+            socket.auth = { sessionID };
+            socket.connect();
+            socket.on('connect', () => {
+                socket.emit('newUser', { userName: userStore.userName || "Ori", socketID: socket.id });
+            });
+           // socket.emit('join_room', chatRoomID);
+            getInitialGameProperties(socket);
+        }
+    }, []);
 
     return (
         <>

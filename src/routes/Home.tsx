@@ -1,34 +1,40 @@
-import { observer } from 'mobx-react'
-import  { useState } from 'react'
+import { observer } from 'mobx-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
-import { Socket } from 'socket.io-client';
-const { userStore } = rootStore
-const Home = observer(({ socket } : { socket: Socket }) => {
+import { SessionSocket } from '../utils/types';
+
+const { userStore } = rootStore;
+
+const Home = observer(({ socket }: { socket: SessionSocket }) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [chatRoomID, setChatRoomID] = useState('');
 
     const InsertUserProperties = () => {
-        userStore.setUserName(userName)
-        socket.connect()
-        socket.on('connect', () => {
-            socket.emit('newUser', { userName, socketID: socket.id });
+        userStore.setUserName(userName);
+        socket.auth = { userName };
+        socket.connect();
+
+        socket.on('session', ({ sessionID }) => {
+            socket.auth = { sessionID };
+            localStorage.setItem('sessionID', sessionID);
+            socket.userName = userName
+            userStore.setChatRoomId(Number(chatRoomID));
+            navigate('/waitingRoom');
         });
-        socket.emit("join_room", chatRoomID)
-        userStore.setChatRoomId(Number(chatRoomID))
-        navigate('/waitingRoom');
-    }
+    };
+
     return (
         <>
             <div>enter your name</div>
-            <input onChange={(e) => {setUserName(e.target.value)}}></input>
+            <input onChange={(e) => setUserName(e.target.value)} />
             <div>enter your chatroom</div>
             <input onChange={(e) => {setChatRoomID(e.target.value)}}></input>
 
             <button onClick={() => {InsertUserProperties()}}>insert</button>
         </>
-    )
-})
+    );
+});
 
-export default Home
+export default Home;

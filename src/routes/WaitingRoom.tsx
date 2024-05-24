@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import { Part, Parts, role, socketUser, team } from "../utils/types";
-import { Socket } from "socket.io-client";
+import { Part, Parts, SessionSocket, role, socketUser, team } from "../utils/types";
 import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
 const { userStore } = rootStore;
 
-function WaitingRoom({socket}: {socket: Socket}) {
+function WaitingRoom({socket}: {socket: SessionSocket}) {
     const navigate = useNavigate();
     const [playersOnline, setPlayersOnline] = useState(0);
     const [parts, setParts] = useState<Parts | undefined>();
     const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        socket.emit('newUser', { userName: socket.userName || "Ori", socketID: socket.id });
+        socket.emit('join_room', userStore.chatRoomId);
+    }, [])
     useEffect(() => {
         socket.on('updatingUsersResponse', (players: socketUser []) => {
             setPlayersOnline(players.length)
@@ -103,7 +106,10 @@ function WaitingRoom({socket}: {socket: Socket}) {
                             Player
                         </button>
 
-                        <div>{playersOnline} / 4 players are online... </div>
+                        <div>{playersOnline / 2} / 4 players are online... </div> { /* TODO: before production we need to change 
+            {playerOnline / 2} to {playerOnline}. when a user connects the connection happens twice instead of once
+            (as a result of the react strict mode). The effect of the strict mode ONLY happens in develpment so before 
+            production we need to change it back */ }
                     </>    
                 )
             }
