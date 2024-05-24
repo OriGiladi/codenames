@@ -17,7 +17,7 @@ const { gamePropertiesStore, userStore } = rootStore;
 
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);
-
+    // TODO: try to nerrow down useEffects
     useEffect(() => {
         socket.on('updateGamePropertiesResponse', (data) => {
             boardLoader(data);

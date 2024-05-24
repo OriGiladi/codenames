@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Part, Parts, SessionSocket, role, socketUser, team } from "../utils/types";
-import { Socket } from "socket.io-client";
 import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
