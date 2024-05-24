@@ -8,6 +8,8 @@ import {io } from 'socket.io-client';
 import Home from './routes/Home'
 import { SessionSocket } from './utils/types'
 
+import WaitingRoom from './routes/WaitingRoom'
+
 
 const socket: SessionSocket = io('http://localhost:3002', {
   autoConnect: false
@@ -26,6 +28,10 @@ function App() {
             <Route 
             path='/chat' 
             element={<ChatRoom socket={socket} />} 
+            />
+            <Route 
+            path='/waitingRoom' 
+            element={<WaitingRoom socket={socket} />} 
             />
             <Route 
             path='/board' 

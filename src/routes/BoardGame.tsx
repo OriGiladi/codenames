@@ -21,7 +21,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
     useEffect(() => {
         socket.on('updateGamePropertiesResponse', (data) => {
             boardLoader(data);
-            setLoading(false); // Data has been loaded, set loading to false
+            setLoading(false); // Data has been loaded, sets loading to false
         });
     }, [socket]);
     useEffect(() => {
@@ -84,8 +84,6 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                     </div>
                                 ))}
                             </div>
-
-                            
 
                             <Player
                                 team={gamePropertiesStore.secondTeam as team}

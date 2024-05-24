@@ -3,6 +3,13 @@ import { Socket } from "socket.io-client";
 
 export type role = "code-master" | "player"
 export type team = "red" | "blue" | "assassin" | "civilian"
+export type Part = 'redP' | 'blueP' | 'redCM' | 'blueCM'
+export type Parts = {
+    redP: boolean,
+    blueP: boolean,
+    redCM: boolean,
+    blueCM: boolean
+}
 export type cardData = {
     word: string;
     team: team;
