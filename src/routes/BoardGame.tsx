@@ -33,7 +33,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             socket.on('connect', () => {
                 socket.emit('newUser', { userName: userStore.userName || "Ori", socketID: socket.id });
             });
-            socket.emit('join_room', chatRoomID);
+           // socket.emit('join_room', chatRoomID);
             if(!isGameInitialized){
                 getInitialGameProperties(socket);
             }
