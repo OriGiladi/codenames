@@ -25,15 +25,18 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
         });
     }, [socket]);
     useEffect(() => {
-        const sessionID = localStorage.getItem('sessionID');
+        const sessionID = sessionStorage.getItem('sessionID');
+        const isGameInitialized = sessionStorage.getItem('isGameInitialized');
         if (sessionID) {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
                 socket.emit('newUser', { userName: userStore.userName || "Ori", socketID: socket.id });
             });
-           // socket.emit('join_room', chatRoomID);
-            getInitialGameProperties(socket);
+            socket.emit('join_room', chatRoomID);
+            if(!isGameInitialized){
+                getInitialGameProperties(socket);
+            }
         }
     }, []);
 

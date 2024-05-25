@@ -43,11 +43,10 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             team: userStore.team
         }
         try {
-            await axios.post(`${BASE_URL}/signup`, userProperties, {
+            const res = await axios.post(`${BASE_URL}/user`, userProperties, {
                 headers: getHeaders()
             });
-            localStorage.setItem('userName', userStore.userName)
-    
+            sessionStorage.setItem('userID', res.data.userID) 
         } catch (error) {
             console.error(error);
             return { response: false, data: null };

@@ -26,5 +26,5 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setSecondTeamClues(data.secondTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamUnguessedWords(data.secondTeamUnguessedWords as string[])
     gamePropertiesStore.setGameOver(data.gameOver as boolean)  
-
+    localStorage.setItem('isGameInitialized', 'true') // TODO: set it to false / remove it, after the game ends 
 }

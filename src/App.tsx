@@ -9,42 +9,44 @@ import Home from './routes/Home'
 import { SessionSocket } from './utils/types'
 
 import WaitingRoom from './routes/WaitingRoom'
+import { getUserProperties } from './loaders/getUserPropertiesLoader'
 
 
-const socket: SessionSocket = io('http://localhost:3002', {
-  autoConnect: false
-});
+// const socket: SessionSocket = io('http://localhost:3002', {
+//   autoConnect: false
+// });
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route 
-        path="/" 
-        element={<RootLayout socket={socket} />}>
-            <Route 
-            index 
-            element={<Home socket={socket}/>} 
-            />
-            <Route 
-            path='/chat' 
-            element={<ChatRoom socket={socket} />} 
-            />
-            <Route 
-            path='/waitingRoom' 
-            element={<WaitingRoom socket={socket} />} 
-            />
-            <Route 
-            path='/board' 
-            element={<BoardGame socket={socket}/>} 
-            />
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route 
+    //     path="/" 
+    //     element={<RootLayout socket={socket} />}>
+    //         <Route 
+    //         index 
+    //         element={<Home socket={socket}/>} 
+    //         />
+    //         <Route 
+    //         path='/chat' 
+    //         element={<ChatRoom socket={socket} />} 
+    //         />
+    //         <Route 
+    //         path='/waitingRoom' 
+    //         element={<WaitingRoom socket={socket} />} 
+    //         />
+    //         <Route 
+    //         path='/board' 
+    //         loader={getUserProperties}
+    //         element={<BoardGame socket={socket}/>} 
+    //         />
     
-            <Route 
-            path="*" 
-            element={<UnfimiliarPage />} 
-            />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    //         <Route 
+    //         path="*" 
+    //         element={<UnfimiliarPage />} 
+    //         />
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
   )
 }
 
