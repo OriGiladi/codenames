@@ -3,6 +3,9 @@ import { Part, Parts, SessionSocket, role, socketUser, team } from "../utils/typ
 import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { getHeaders } from "../utils/sdk";
 const { userStore } = rootStore;
 
 function WaitingRoom({socket}: {socket: SessionSocket}) {
@@ -28,15 +31,31 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
         });
     }, [socket])
 
-    function choosePart(part: Part){
+    async function choosePart(part: Part){
         const roleAndTeam = getRoleAndTeamFromPart(part)
         userStore.setRole(roleAndTeam?.role as role)
         userStore.setTeam(roleAndTeam?.team as team)
         userStore.setHasChosenRole(true)
-        fillPartInServer(part)
+
+        const userProperties = {
+            userName: userStore.userName,
+            role: userStore.role,
+            team: userStore.team
+        }
+        try {
+            const res = await axios.post(`${BASE_URL}/user`, userProperties, {
+                headers: getHeaders()
+            });
+            sessionStorage.setItem('userID', res.data.userID) 
+        } catch (error) {
+            console.error(error);
+            return { response: false, data: null };
+        }
+
+        fillPartInSocketServer(part)
     }
 
-    function fillPartInServer( part: Part){
+    function fillPartInSocketServer( part: Part){
         const updatedParts = { ...parts };
         (updatedParts as Parts)[part] = true; 
         socket.emit("fillPart", updatedParts)

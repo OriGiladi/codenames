@@ -18,7 +18,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
 
         socket.on('session', ({ sessionID }) => {
             socket.auth = { sessionID };
-            localStorage.setItem('sessionID', sessionID);
+            sessionStorage.setItem('sessionID', sessionID);
             socket.userName = userName
             userStore.setChatRoomId(Number(chatRoomID));
             navigate('/waitingRoom');

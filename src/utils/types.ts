@@ -55,3 +55,9 @@ export interface SessionSocket extends Socket {
     userName?: string
     sessionID?: string
 }
+
+export type user = {
+    userName: string
+    role: role
+    team: team
+}

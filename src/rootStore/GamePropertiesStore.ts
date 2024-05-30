@@ -26,7 +26,6 @@ class GamePropertiesStore {
 
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
-
         makeAutoObservable(this);
     }
     setAllDisable(allDisabled: boolean) {
