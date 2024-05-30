@@ -15,67 +15,58 @@ import BoardGame from './routes/BoardGame.tsx'
 import { getUserProperties as getUserPropertiesLoader } from './loaders/getUserPropertiesLoader.ts'
 
 const socket: SessionSocket = io('http://localhost:3002', {
-  autoConnect: false
+    autoConnect: false
 });
 
 const router = createBrowserRouter([
-  {
-      path: '/',
-      element: <RootLayout socket={socket}/>,
-      children: [
-          {
-              index: true,
-              element: <Home socket={socket}/>,
-              
-          },
-          {
-              path: 'chat',
-              element: <ChatRoom socket={socket}  />,
-              errorElement: <UnfimiliarPage />
-          }, 
-          {
-              path: 'waitingRoom',
-              element: <WaitingRoom socket={socket} />,
-              errorElement: <UnfimiliarPage />
-          }, 
-          {
-              path: 'board',
-              element: <BoardGame socket={socket} />,
-              loader: getUserPropertiesLoader,
-              // errorElement: <UnfimiliarPage />
-          }, 
-          {
-              path: "*",
-              element: <UnfimiliarPage />
-          }
-      ],
-  },
-  {
-      path: "*",
-      element: <UnfimiliarPage />
-  }
-]);  
+    {
+        path: '/',
+        element: <RootLayout socket={socket}/>,
+        children: [
+            {
+                index: true,
+                element: <Home socket={socket}/>,
+            },
+            {
+                path: 'chat',
+                element: <ChatRoom socket={socket}  />,
+                errorElement: <UnfimiliarPage />
+            }, 
+            {
+                path: 'waitingRoom',
+                element: <WaitingRoom socket={socket} />,
+                errorElement: <UnfimiliarPage />
+            }, 
+            {
+                path: 'board',
+                element: <BoardGame socket={socket} />,
+                loader: getUserPropertiesLoader,
+                errorElement: <UnfimiliarPage />
+            }, 
+            {
+                path: "*",
+                element: <UnfimiliarPage />
+            }
+        ],
+    },
+    {
+        path: "*",
+        element: <UnfimiliarPage />
+    }
+    ]);  
 
 
-const theme = extendTheme({ 
-  fonts: {
-      heading: `'Ubuntu', sans-serif`,
-      body: `'Ubuntu', sans-serif`,
-  },
+    const theme = extendTheme({ 
+    fonts: {
+        heading: `'Ubuntu', sans-serif`,
+        body: `'Ubuntu', sans-serif`,
+    },
 })
 
-// ReactDOM.createRoot(document.getElementById("root")!).render(
-//   <React.StrictMode>
-//       <ChakraProvider theme={theme}>
-//           <App />
-//       </ChakraProvider>
-//   </React.StrictMode>
-// );
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-      <ChakraProvider theme={theme}>
-              <RouterProvider router={router} />
-      </ChakraProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <ChakraProvider theme={theme}>
+                <RouterProvider router={router} />
+        </ChakraProvider>
+    </React.StrictMode>
 );
