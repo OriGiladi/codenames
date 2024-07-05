@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { REST_API_BASE_URL } from "../utils/constants";
 import { getHeaders } from "../utils/sdk";
 const { userStore } = rootStore;
 
@@ -14,7 +14,7 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
     const [parts, setParts] = useState<Parts | undefined>();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName || "Ori", socketID: socket.id });
+        socket.emit('newUser', { userName: socket.userName, socketID: socket.id});
         socket.emit('join_room', userStore.chatRoomId);
     }, [])
     useEffect(() => {
@@ -43,10 +43,10 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             team: userStore.team
         }
         try {
-            const res = await axios.post(`${BASE_URL}/user`, userProperties, {
+            await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {
                 headers: getHeaders()
             });
-            sessionStorage.setItem('userID', res.data.userID) 
+            sessionStorage.setItem('userName', userStore.userName) 
         } catch (error) {
             console.error(error);
             return { response: false, data: null };

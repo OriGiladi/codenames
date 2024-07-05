@@ -1,11 +1,11 @@
-import { BASE_URL } from "../utils/constants"
+import { REST_API_BASE_URL } from "../utils/constants"
 import rootStore from "../rootStore"
 import { user } from "../utils/types"
 const { userStore } = rootStore
-const userID = sessionStorage.getItem('userID')
+const userName = sessionStorage.getItem('userName')
 export const getUserProperties = async () => {
-    if(userID){
-        const res = await fetch(`${BASE_URL}/user/${userID}`)
+    if(userName){
+        const res = await fetch(`${REST_API_BASE_URL}/user/${userName}`)
         const data: user = await res.json()
         userStore.setRole(data.role)
         userStore.setTeam(data.team)
