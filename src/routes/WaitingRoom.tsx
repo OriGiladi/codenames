@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Part, Parts, SessionSocket, role, socketUser, team } from "../utils/types";
+import { Part, Parts, SessionSocket, role, team } from "../utils/types";
 import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
@@ -14,12 +14,12 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
     const [parts, setParts] = useState<Parts | undefined>();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName, socketID: socket.id});
+        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoomId);
         socket.emit('join_room', userStore.chatRoomId);
     }, [])
     useEffect(() => {
-        socket.on('updatingUsersResponse', (players: socketUser []) => {
-            setPlayersOnline(players.length)
+        socket.on('updatingUsersOnlineResponse', (players: number) => {
+            setPlayersOnline(players)
             setLoading(false); // Data has been loaded, sets loading to false
         });
         socket.on('partsResponse', (parts: Parts) => {
@@ -40,7 +40,8 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
         const userProperties = {
             userName: userStore.userName,
             role: userStore.role,
-            team: userStore.team
+            team: userStore.team,
+            chatRoomID: userStore.chatRoomId
         }
         try {
             await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {

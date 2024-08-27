@@ -14,7 +14,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
 
     const InsertUserProperties = async () => {
         userStore.setUserName(userName);
-        const res = await fetch(`${REST_API_BASE_URL}/user/${userName}`)
+        const res = await fetch(`${REST_API_BASE_URL}/user/userName/${userName}`)
         const data: user = await res.json()
         if(data.user === 'User not found'){
             socket.auth = { userName };
