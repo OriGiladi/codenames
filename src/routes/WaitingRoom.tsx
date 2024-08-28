@@ -6,9 +6,10 @@ import rootStore from "../rootStore";
 import axios from "axios";
 import { REST_API_BASE_URL } from "../utils/constants";
 import { getHeaders } from "../utils/sdk";
+import { observer } from "mobx-react";
 const { userStore } = rootStore;
 
-function WaitingRoom({socket}: {socket: SessionSocket}) {
+const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
     const navigate = useNavigate();
     const [playersOnline, setPlayersOnline] = useState(0);
     const [parts, setParts] = useState<Parts | undefined>();
@@ -52,16 +53,9 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             console.error(error);
             return { response: false, data: null };
         }
-
-        fillPartInSocketServer(part)
+        socket.emit("getChosenParts", userStore.chatRoomId)
     }
 
-    function fillPartInSocketServer( part: Part){
-        const updatedParts = { ...parts };
-        (updatedParts as Parts)[part] = true; 
-        socket.emit("fillPart", updatedParts)
-    }
-    
     function getRoleAndTeamFromPart(part: Part){
         if(part === 'blueCM')
             return {role: 'code-master', team: "blue"}
@@ -126,7 +120,7 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
                             Player
                         </button>
 
-                        <div>{playersOnline / 2} / 4 players are online... </div> { /* TODO: before production we need to change 
+                        <div>{playersOnline} / 4 players are online... </div> { /* TODO: before production we need to change 
             {playerOnline / 2} to {playerOnline}. when a user connects the connection happens twice instead of once
             (as a result of the react strict mode). The effect of the strict mode ONLY happens in develpment so before 
             production we need to change it back */ }
@@ -135,8 +129,6 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             }
         </>
     )
-}
+})
 
 export default WaitingRoom
-
-
