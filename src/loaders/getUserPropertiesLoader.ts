@@ -5,7 +5,7 @@ const { userStore } = rootStore
 const userName = sessionStorage.getItem('userName')
 export const getUserProperties = async () => {
     if(userName){
-        const res = await fetch(`${REST_API_BASE_URL}/user/${userName}`)
+        const res = await fetch(`${REST_API_BASE_URL}/user/userName/${userName}`)
         const data: user = await res.json()
         userStore.setRole(data.role)
         userStore.setTeam(data.team)

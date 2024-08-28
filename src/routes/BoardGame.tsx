@@ -31,7 +31,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
-                socket.emit('newUser', { userName: userStore.userName , socketID: socket.id});
+                socket.emit('newUser', { userName: userStore.userName , socketID: socket.id}, userStore.chatRoomId);
             });
            // socket.emit('join_room', chatRoomID);
             if(!isGameInitialized){

@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
-import { Part, Parts, SessionSocket, role, socketUser, team } from "../utils/types";
+import { Part, Parts, SessionSocket, role, team } from "../utils/types";
 import { useNavigate } from 'react-router-dom';
 import { getInitialGameProperties } from "../gameFunctionality/gameInitialization";
 import rootStore from "../rootStore";
 import axios from "axios";
 import { REST_API_BASE_URL } from "../utils/constants";
 import { getHeaders } from "../utils/sdk";
+import { observer } from "mobx-react";
 const { userStore } = rootStore;
 
-function WaitingRoom({socket}: {socket: SessionSocket}) {
+const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
     const navigate = useNavigate();
     const [playersOnline, setPlayersOnline] = useState(0);
     const [parts, setParts] = useState<Parts | undefined>();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName, socketID: socket.id});
+        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoomId);
         socket.emit('join_room', userStore.chatRoomId);
     }, [])
     useEffect(() => {
-        socket.on('updatingUsersResponse', (players: socketUser []) => {
-            setPlayersOnline(players.length)
+        socket.on('updatingUsersOnlineResponse', (players: number) => {
+            setPlayersOnline(players)
             setLoading(false); // Data has been loaded, sets loading to false
         });
         socket.on('partsResponse', (parts: Parts) => {
@@ -40,7 +41,8 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
         const userProperties = {
             userName: userStore.userName,
             role: userStore.role,
-            team: userStore.team
+            team: userStore.team,
+            chatRoomID: userStore.chatRoomId
         }
         try {
             await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {
@@ -51,16 +53,9 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             console.error(error);
             return { response: false, data: null };
         }
-
-        fillPartInSocketServer(part)
+        socket.emit("getChosenParts", userStore.chatRoomId)
     }
 
-    function fillPartInSocketServer( part: Part){
-        const updatedParts = { ...parts };
-        (updatedParts as Parts)[part] = true; 
-        socket.emit("fillPart", updatedParts)
-    }
-    
     function getRoleAndTeamFromPart(part: Part){
         if(part === 'blueCM')
             return {role: 'code-master', team: "blue"}
@@ -125,7 +120,7 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
                             Player
                         </button>
 
-                        <div>{playersOnline / 2} / 4 players are online... </div> { /* TODO: before production we need to change 
+                        <div>{playersOnline} / 4 players are online... </div> { /* TODO: before production we need to change 
             {playerOnline / 2} to {playerOnline}. when a user connects the connection happens twice instead of once
             (as a result of the react strict mode). The effect of the strict mode ONLY happens in develpment so before 
             production we need to change it back */ }
@@ -134,8 +129,6 @@ function WaitingRoom({socket}: {socket: SessionSocket}) {
             }
         </>
     )
-}
+})
 
 export default WaitingRoom
-
-
