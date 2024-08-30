@@ -1,6 +1,13 @@
-import { wordBank } from "../wordBark";
 import { Socket } from "socket.io-client";
 import { cardData, gamePropertiesObj, team } from "../utils/types";
+import { REST_API_BASE_URL } from "../utils/constants";
+
+
+async function getWordBank(){
+    const wordBankJson = await fetch(`${REST_API_BASE_URL}/wordBank`)
+    const wordBank: string [] = await wordBankJson.json()
+    return wordBank
+}
 
 function shuffle(wordBank: string [] | cardData []) {
     let currentIndex = wordBank.length,
@@ -22,14 +29,14 @@ function shuffle(wordBank: string [] | cardData []) {
     return wordBank;
 }
 
-export function getInitialGameProperties(socket: Socket){
+export async function getInitialGameProperties(socket: Socket){
     let startTurn: team;
     let secondTurn: team;
     Math.round(Math.random()) > 0 ? (startTurn = "blue") : (startTurn = "red");
     startTurn === "blue" ? (secondTurn = "red") : (secondTurn = "blue");
 
+    const wordBank = await getWordBank();
     const shuffledBank = shuffle(wordBank) as string [];
-
     const arrayofWordObjects: cardData [] = [];
     const firstTeamWords = [];
     const secondTeamWords = [];
@@ -46,7 +53,7 @@ export function getInitialGameProperties(socket: Socket){
         firstTeamWords.push(cardData.word);
     }
 
-    for (let j = 10; j < 18; j++) {
+    for (let j = 9; j < 17; j++) {
         const cardData = {
             word: shuffledBank[j],
             team: secondTurn,
@@ -56,7 +63,8 @@ export function getInitialGameProperties(socket: Socket){
         secondTeamWords.push(cardData.word);
     }
 
-    for (let k = 20; k < 27; k++) {
+    for (let k = 17; k < 24; k++) {
+        console.log(shuffledBank[k])
         const cardData: cardData = {
             word: shuffledBank[k],
             team: "civilian",
@@ -66,7 +74,7 @@ export function getInitialGameProperties(socket: Socket){
         arrayofWordObjects.push(cardData);
     }
 
-    for (let l = 30; l < 31; l++) {
+    for (let l = 24; l < 25; l++) {
         const cardData: cardData = {
             word: shuffledBank[l],
             team: "assassin",
@@ -76,9 +84,7 @@ export function getInitialGameProperties(socket: Socket){
         assassinWord.push(cardData.word);
         arrayofWordObjects.push(cardData);
     }
-
     shuffle(arrayofWordObjects);
-
     const gameArray: cardData [] [] = [];
 
     for (let a = 0; a < 5; a++) {
