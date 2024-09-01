@@ -1,8 +1,8 @@
 import rootStore from "../rootStore"
 import { userRoles } from "../utils/constants"
-import { cardData, clueObj, gamePropertiesObj, team } from "../utils/types"
+import { cardData, clueObj, gameProperties, team } from "../utils/types"
 const { gamePropertiesStore, userStore } = rootStore
-export const boardLoader = (data: gamePropertiesObj) => {
+export const boardLoader = (data: gameProperties) => {
     gamePropertiesStore.setGameArray(data.gameArray as cardData[][])
     gamePropertiesStore.setFirstTeamWords(data.firstTeamWords as string[])
     gamePropertiesStore.setSecondTeamWords(data.secondTeamWords as string[])
@@ -25,6 +25,5 @@ export const boardLoader = (data: gamePropertiesObj) => {
     gamePropertiesStore.setFirstTeamClues(data.firstTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamClues(data.secondTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamUnguessedWords(data.secondTeamUnguessedWords as string[])
-    gamePropertiesStore.setGameOver(data.gameOver as boolean)  
-    localStorage.setItem('isGameInitialized', 'true') // TODO: set it to false / remove it, after the game ends 
+    gamePropertiesStore.setGameOver(data.gameOver as boolean)   
 }

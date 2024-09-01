@@ -1,14 +1,15 @@
 import { Socket } from "socket.io-client";
 import rootStore from "../rootStore";
-import { gamePropertiesObj, team } from "../utils/types";
-const { gamePropertiesStore } = rootStore
+import { gameProperties, team } from "../utils/types";
+const { gamePropertiesStore, userStore } = rootStore
 
 const HandleZeroGuessesRemaining = (otherTeam: team, socket: Socket) => {
     alert("switching turn")
     socket.emit("updateGameProperties", {
         allDisable: true,
-        turn: otherTeam
-    } as gamePropertiesObj)
+        turn: otherTeam,
+        chatRoomID: userStore.chatRoomID
+    } as gameProperties)
 }
 export const flipCard = (clue: string, socket: Socket) => {
     const gameArray = [...gamePropertiesStore.gameArray];
@@ -27,12 +28,14 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? 
                     socket.emit("updateGameProperties", {
                         firstTeamScore: firstTeamScore -1,
-                        guessesRemaining: guessesRemaining -1
-                    } as gamePropertiesObj):
+                        guessesRemaining: guessesRemaining -1,
+                        chatRoomID: userStore.chatRoomID
+                    } as gameProperties):
                     socket.emit("updateGameProperties", {
                         secondTeamScore: secondTeamScore -1,
-                        guessesRemaining: guessesRemaining -1
-                    } as gamePropertiesObj)
+                        guessesRemaining: guessesRemaining -1,
+                        chatRoomID: userStore.chatRoomID
+                    } as gameProperties)
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "red") : (nextTurn = "blue");
                     
@@ -48,11 +51,15 @@ export const flipCard = (clue: string, socket: Socket) => {
                     socket.emit("updateGameProperties", {
                         secondTeamScore: secondTeamScore -1,
                         firstTeamScore: firstTeamScore -1,
-                        guessesRemaining: 0
-                    } as gamePropertiesObj):
+                        guessesRemaining: 0,
+                        chatRoomID: userStore.chatRoomID
+                    } as gameProperties):
 
                     gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
-                    socket.emit("updateGameProperties", {allDisable: true} as gamePropertiesObj)
+                    socket.emit("updateGameProperties", { 
+                        allDisable: true, 
+                        chatRoomID: userStore.chatRoomID 
+                    } as gameProperties)
 
                     alert(`opponent's word, turn switched to ${nextTurn}`)
                     HandleZeroGuessesRemaining(otherTeam, socket)
@@ -64,8 +71,9 @@ export const flipCard = (clue: string, socket: Socket) => {
                     
                     socket.emit("updateGameProperties", {
                         allDisable: true,
-                        guessesRemaining: 0
-                    } as gamePropertiesObj)
+                        guessesRemaining: 0,
+                        chatRoomID: userStore.chatRoomID
+                    } as gameProperties)
 
                     alert(`civilian's word, turn switched to ${nextTurn}`)
                     HandleZeroGuessesRemaining(otherTeam, socket)
@@ -74,27 +82,37 @@ export const flipCard = (clue: string, socket: Socket) => {
                     gameArray[i][j].clicked = true;
                     socket.emit("updateGameProperties", {
                         gameOver: true,
-                        allDisable: true
-                    } as gamePropertiesObj)
+                        allDisable: true,
+                        chatRoomID: userStore.chatRoomID
+                    } as gameProperties)
                     break;
                 }
             }
         }
-        socket.emit("updateGameProperties", {gameArray: gameArray} as gamePropertiesObj)
+        socket.emit("updateGameProperties", {
+            gameArray: gameArray,
+            chatRoomID: userStore.chatRoomID
+        } as gameProperties)
         }
         if (gamePropertiesStore.firstTeamWords?.includes(clue)){
             const indexOfTheWord = gamePropertiesStore.firstTeamUnguessedWords?.indexOf(clue) as number;
             if (indexOfTheWord !== - 1) {
                 const updatedUnguessedWords = [...(gamePropertiesStore.firstTeamUnguessedWords as string[])];
                 updatedUnguessedWords.splice(indexOfTheWord, 1);
-                socket.emit("updateGameProperties", { firstTeamUnguessedWords: updatedUnguessedWords });
+                socket.emit("updateGameProperties", { 
+                    firstTeamUnguessedWords: updatedUnguessedWords,
+                    chatRoomID: userStore.chatRoomID 
+                });
             }
         } else if (gamePropertiesStore.secondTeamWords?.includes(clue)){
             const indexOfTheWord = gamePropertiesStore.secondTeamUnguessedWords?.indexOf(clue) as number;
             if (indexOfTheWord !== -1) {
                 const updatedUnguessedWords = [...(gamePropertiesStore.secondTeamUnguessedWords as string[])];
                 updatedUnguessedWords.splice(indexOfTheWord, 1);
-                socket.emit("updateGameProperties", { secondTeamUnguessedWords: updatedUnguessedWords });
+                socket.emit("updateGameProperties", { 
+                    secondTeamUnguessedWords: updatedUnguessedWords,
+                    chatRoomID: userStore.chatRoomID
+                });
             }
         }
 

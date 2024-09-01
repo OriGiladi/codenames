@@ -22,7 +22,7 @@ const ChatBody = ( { messages } : { messages: Message [] }) => {
 
             <div className="message__container">
                 {messages.map((message) =>
-                    message.roomId === userStore.chatRoomId  ? ( // Check if the message belongs to the current room
+                    message.roomId === userStore.chatRoomID  ? ( // Check if the message belongs to the current room
                         message.name === userStore.userName ? (
                             <div className="message__chats" key={message.id}>
                                 <p className="sender__name">You</p>

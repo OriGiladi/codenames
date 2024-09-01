@@ -4,14 +4,19 @@ import { observer } from 'mobx-react'
 import { Image } from '@chakra-ui/react'
 import { Socket } from 'socket.io-client'
 import { userRoles } from '../../utils/constants'
-import { team } from '../../utils/types'
+import { gameProperties as gameProperties, team } from '../../utils/types'
 const { gamePropertiesStore, userStore } = rootStore
 
 const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam, socket}: 
     { firstTeamWords: string [], firstTeam: team, civilianWords: string[], assassinWord: string [], secondTeamWords: string [], secondTeam: team, socket: Socket}) => {
     const showClues = () => {  
+
+        const showCluesProperties = {
+            chatRoomID: userStore.chatRoomID,
+            showClues: !gamePropertiesStore.codeMasterView
+        } as gameProperties
         if(userStore.role === userRoles.CODE_MASTER)  {
-            socket.emit('showClues')
+            socket.emit("updateGameProperties", showCluesProperties)
         }
     }
     return (

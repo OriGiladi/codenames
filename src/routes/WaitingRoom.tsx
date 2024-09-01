@@ -14,9 +14,10 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
     const [playersOnline, setPlayersOnline] = useState(0);
     const [parts, setParts] = useState<Parts | undefined>();
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoomId);
-        socket.emit('join_room', userStore.chatRoomId);
+        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoomID);
+        socket.emit('join_room', userStore.chatRoomID);
     }, [])
     useEffect(() => {
         socket.on('updatingUsersOnlineResponse', (players: number) => {
@@ -26,7 +27,9 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
         socket.on('partsResponse', (parts: Parts) => {
             setParts(parts)
             if(parts?.redP && parts?.redCM && parts?.blueP && parts?.blueCM){
-                getInitialGameProperties(socket) 
+                if(userStore.isHost()){   
+                    getInitialGameProperties(socket)
+                }
                 navigate('/board')
             }
         });
@@ -42,7 +45,7 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
             userName: userStore.userName,
             role: userStore.role,
             team: userStore.team,
-            chatRoomID: userStore.chatRoomId
+            chatRoomID: userStore.chatRoomID
         }
         try {
             await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {
@@ -53,7 +56,7 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
             console.error(error);
             return { response: false, data: null };
         }
-        socket.emit("getChosenParts", userStore.chatRoomId)
+        socket.emit("getChosenParts", userStore.chatRoomID)
     }
 
     function getRoleAndTeamFromPart(part: Part){

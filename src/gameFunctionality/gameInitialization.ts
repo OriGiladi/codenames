@@ -1,7 +1,9 @@
 import { Socket } from "socket.io-client";
-import { cardData, gamePropertiesObj, team } from "../utils/types";
+import { cardData, gameProperties, team } from "../utils/types";
 import { REST_API_BASE_URL } from "../utils/constants";
+import rootStore from "../rootStore";
 
+const { userStore } = rootStore
 
 async function getWordBank(){
     const wordBankJson = await fetch(`${REST_API_BASE_URL}/wordBank`)
@@ -64,7 +66,6 @@ export async function getInitialGameProperties(socket: Socket){
     }
 
     for (let k = 17; k < 24; k++) {
-        console.log(shuffledBank[k])
         const cardData: cardData = {
             word: shuffledBank[k],
             team: "civilian",
@@ -91,7 +92,8 @@ export async function getInitialGameProperties(socket: Socket){
         const row = arrayofWordObjects.splice(0, 5);
         gameArray.push(row)
     }
-    const gameStartProperties: gamePropertiesObj = { 
+    const gameStartProperties: gameProperties = { 
+        chatRoomID: userStore.chatRoomID,
         gameArray: gameArray,
         firstTeamWords: firstTeamWords,
         firstTeamUnguessedWords: firstTeamWords,
@@ -111,7 +113,8 @@ export async function getInitialGameProperties(socket: Socket){
         secondTeamUnguessedWords: secondTeamWords,
         gameOver: false
     }
-    socket.emit('gameStart', gameStartProperties);
+
+    socket.emit('gameStart', gameStartProperties, userStore.chatRoomID);
     
     return null // makes it able to be used as a loader
 }
