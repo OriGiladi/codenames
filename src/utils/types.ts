@@ -15,7 +15,8 @@ export type cardData = {
     team: team;
     clicked: boolean;
 }
-export type gamePropertiesObj = {
+export type gameProperties = {
+    chatRoomID: number;
     gameArray?: cardData[][];
     firstTeamWords?: string[];
     firstTeamUnguessedWords?: string[];

@@ -5,10 +5,11 @@ import { role, team } from "../utils/types";
 class UserStore {
     rootstore : RootStore
     userName: string = "";
-    chatRoomId: number = 0
+    chatRoomID: number = 0
     role?: role
     team?: team
     hasChosenRole: boolean = false
+    
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
         makeAutoObservable(this);
@@ -17,7 +18,7 @@ class UserStore {
         this.userName = userName
     }
     setChatRoomId(chatRoomId: number) {
-        this.chatRoomId = chatRoomId
+        this.chatRoomID = chatRoomId
     }
     setRole(role: role) {
         this.role = role
@@ -27,6 +28,9 @@ class UserStore {
     }
     setHasChosenRole(hasChosenRole: boolean) {
         this.hasChosenRole = hasChosenRole
+    }
+    isHost() {
+        return this.role === 'code-master' && this.team === 'blue'
     }
 
 }

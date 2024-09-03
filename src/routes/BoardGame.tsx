@@ -11,7 +11,6 @@ import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
 import { clueObj, team } from '../utils/types';
-import { getInitialGameProperties } from '../gameFunctionality/gameInitialization';
 
 const { gamePropertiesStore, userStore } = rootStore;
 
@@ -26,17 +25,13 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
     }, [socket]);
     useEffect(() => {
         const sessionID = sessionStorage.getItem('sessionID');
-        const isGameInitialized = sessionStorage.getItem('isGameInitialized');
         if (sessionID) {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
-                socket.emit('newUser', { userName: userStore.userName , socketID: socket.id}, userStore.chatRoomId);
+                socket.emit('newUser', { userName: userStore.userName , socketID: socket.id}, userStore.chatRoomID);
             });
            // socket.emit('join_room', chatRoomID);
-            if(!isGameInitialized){
-                getInitialGameProperties(socket);
-            }
         }
     }, []);
 
