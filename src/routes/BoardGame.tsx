@@ -21,7 +21,6 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
         socket.on('updateGamePropertiesResponse', (data) => {
             boardLoader(data);
             setLoading(false); // Data has been loaded, sets loading to false
-            console.log('gamePropertiesStore.gameArray:',gamePropertiesStore.gameArray)
         });
     }, [socket]);
     useEffect(() => {
