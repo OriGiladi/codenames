@@ -17,19 +17,20 @@ const { gamePropertiesStore, userStore } = rootStore;
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);
     // TODO: try to nerrow down useEffects
-    useEffect(() => {
+    useEffect(() => { 
         socket.on('updateGamePropertiesResponse', (data) => {
             boardLoader(data);
             setLoading(false); // Data has been loaded, sets loading to false
         });
     }, [socket]);
-    useEffect(() => {
+    useEffect(() => { // when a user refreshes
         const sessionID = sessionStorage.getItem('sessionID');
         if (sessionID) {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
-                socket.emit('newUser', { userName: userStore.userName , socketID: socket.id}, userStore.chatRoomID);
+                socket.emit('newUser', { userName: userStore.userName || sessionStorage.getItem('userName'), socketID: socket.id}, userStore.chatRoomID);
+                socket.emit("updateGameProperties", 'none' ,sessionStorage.getItem('userName')) // just to get the game properties from the server
             });
            // socket.emit('join_room', chatRoomID);
         }
