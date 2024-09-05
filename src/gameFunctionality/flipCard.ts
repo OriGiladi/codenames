@@ -89,5 +89,6 @@ export const flipCard = (clue: string, socket: Socket) => {
                 updatedGameProperties.secondTeamUnguessedWords = updatedUnguessedWords
             }
         }
+        updatedGameProperties.gameArray = gameArray
         socket.emit("updateGameProperties", updatedGameProperties as gameProperties)
 }
