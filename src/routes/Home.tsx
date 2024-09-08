@@ -15,7 +15,9 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
     const InsertUserProperties = async () => {
         userStore.setUserName(userName);
         const res = await fetch(`${REST_API_BASE_URL}/user/userName/${userName}`)
-        const data: user = await res.json()
+        const data: {user: user | string} = await res.json()
+        const user: user = data.user as user
+
         if(data.user === 'User not found'){
             socket.auth = { userName };
             socket.connect();
@@ -26,6 +28,25 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
                 socket.userName = userName
                 userStore.setChatRoomId(Number(chatRoomID));
                 navigate('/waitingRoom');
+            });
+        }
+        
+        else if(user.userName === userName && user.chatRoomID === Number(chatRoomID) && user.isOnline === false){
+            socket.auth = { userName };
+            socket.connect();
+
+            socket.on('session', ({ sessionID }) => {
+                socket.auth = { sessionID };
+                sessionStorage.setItem('sessionID', sessionID);
+                socket.userName = userName
+                userStore.setChatRoomId(Number(chatRoomID));
+                userStore.setRole(user.role)
+                userStore.setIsOnline(user.isOnline)
+                userStore.setTeam(user.team)
+                socket.emit('newUser', { userName: userStore.userName, socketID: socket.id}, userStore.chatRoomID);
+                socket.emit("updateGameProperties", 'none' ,userStore.userName) // just to get the game properties from the server
+                sessionStorage.setItem('userName', userStore.userName)
+                navigate('/board');
             });
         }
         else{

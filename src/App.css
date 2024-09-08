@@ -16,7 +16,19 @@
 .App-title {
     font-size: 1.5em;
 }
-
+.online-icon {
+    color: green;
+}
+.offline-icon {
+    color: gray;
+}
+.users-in-game{
+    display: flex;
+    margin-bottom: 2vh;
+}
+.me{
+    color: blue;
+}
 @media (max-width: 950px) {
     .App-title {
     font-size: 1.25em;

@@ -1,26 +1,35 @@
 import rootStore from "../rootStore"
 import { observer } from "mobx-react"
-import { SessionSocket } from "../utils/types";
-import { useEffect, useState } from "react";
-const  { userStore } = rootStore
+import '../App.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
+import { faCircle } from '@fortawesome/free-solid-svg-icons'; // Import specific icon
+
+import { SessionSocket, user } from "../utils/types";
+import { useEffect } from "react";
+const  { userStore, onlineUsersStore } = rootStore
 
 const NavBar = observer(({socket}: {socket: SessionSocket}) => {
-    const [playersOnline, setPlayersOnline] = useState(0);
     useEffect(() => {
-        socket.on('updatingUsersOnlineResponse', (players: number) => {
-            setPlayersOnline(players)
-    });
+        socket.on('updatingUsersResponse', (users: user []) => {
+            onlineUsersStore.setOnlineUsers(users);
+    }   );
     }, [socket])
+
     return (
         <>
             <div> {userStore.userName} </div>
             <div> Role: {userStore.role} </div>
             <div> Team: {userStore.team} </div>
             <div> Room ID: {userStore.chatRoomID} </div>
-            <div> online: {Math.round(playersOnline)} </div>  { /* TODO: before production we need to change 
-            {playerOnline / 2} to {playerOnline}. when a user connects the connection happens twice instead of once
-            (as a result of the react strict mode). The effect of the strict mode ONLY happens in develpment so before 
-            production we need to change it back */ }
+            {onlineUsersStore.onlineUsers?.map((player) => (
+                <div key={player.userName} className="users-in-game">
+                    <FontAwesomeIcon icon={faCircle} className={player.isOnline ? 'online-icon' : 'offline-icon'} />
+                    <div className={player.userName === userStore.userName ? 'me player' : 'player'}>
+                        {player.userName}
+                    </div>
+                </div>
+            ))}
+            
         </>
         
     )
