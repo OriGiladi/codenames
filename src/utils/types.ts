@@ -29,12 +29,12 @@ export type gameProperties = {
     codeMasterView?: boolean;
     guessesRemaining?: number;
     allDisable?: boolean;
-    firstTeamScore?: number;
-    secondTeamScore?: number;
+    firstTeamRemainingWords?: number;
+    secondTeamRemainingWords?: number;
     firstTeamClues?: clueObj [];
     secondTeamClues?: clueObj [];
     secondTeamUnguessedWords?: string []
-    gameOver?: boolean;
+    winner?: 'red' | 'blue' | null;
 };
 export type clueObj = {
     clue: string;

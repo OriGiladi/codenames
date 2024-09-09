@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import '../App.css';
 import { observer } from 'mobx-react';
 import { Socket } from 'socket.io-client';
 import { boardLoader } from '../loaders/boardLoader';
@@ -40,8 +41,17 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
         <>
             {loading ? (
                 <div>Loading...</div>
-            ) : !gamePropertiesStore.gameOver ? (
-                <div className="App">
+            ) :  (
+                <div className={gamePropertiesStore.winner === 'red' ? 
+                "App red-winner-bg" : gamePropertiesStore.winner === 'blue' ?
+                "App blue-winner-bg" : 'App'
+                }>
+                    <div className={gamePropertiesStore.winner === 'red' ? 
+                    "red-winner" : gamePropertiesStore.winner === 'blue' ?
+                    "blue-winner" : ''
+                    }>
+                        {gamePropertiesStore.winner === null ? '' : `The ${gamePropertiesStore.winner} won!`}
+                    </div>
                     <div>turn: {gamePropertiesStore.turn}</div>
                     <div>guesses remaining: {gamePropertiesStore.guessesRemaining}</div>
                     <Header
@@ -60,7 +70,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                         <div className="row">
                             <Player
                                 team={gamePropertiesStore.firstTeam as team}
-                                score={gamePropertiesStore.firstTeamScore as number}
+                                remainingWords={gamePropertiesStore.firstTeamRemainingWords as number}
                                 clues={gamePropertiesStore.firstTeamClues as clueObj[]}
                                 passTurn={passTurn}
                                 currentTurn={gamePropertiesStore.turn as team}
@@ -86,7 +96,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
 
                             <Player
                                 team={gamePropertiesStore.secondTeam as team}
-                                score={gamePropertiesStore.secondTeamScore as number}
+                                remainingWords={gamePropertiesStore.secondTeamRemainingWords as number}
                                 clues={gamePropertiesStore.secondTeamClues as clueObj[]}
                                 passTurn={passTurn}
                                 currentTurn={gamePropertiesStore.turn as team}
@@ -95,9 +105,8 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <div>Game over</div>
-            )}
+            ) 
+        }
         </>
     );
 });

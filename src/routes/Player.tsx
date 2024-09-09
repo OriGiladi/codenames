@@ -4,9 +4,9 @@ import { Socket } from "socket.io-client";
 import { clueObj, team } from "../utils/types";
 import { userRoles } from "../utils/constants";
 const { userStore, gamePropertiesStore } = rootStore
-const Player = observer(({ team, score, clues, passTurn, currentTurn, socket }: { 
+const Player = observer(({ team,  remainingWords, clues, passTurn, currentTurn, socket }: { 
     team: team, 
-    score: number, 
+    remainingWords: number, 
     clues: clueObj[], 
     passTurn: (socket: Socket) => void, 
     currentTurn: team, 
@@ -19,7 +19,7 @@ const Player = observer(({ team, score, clues, passTurn, currentTurn, socket }: 
     return (
         <div className="col-md-1">
             <p>{team.toUpperCase()} TEAM</p>
-            <p>Remaining: {score}</p>
+            <p>Remaining: {remainingWords}</p>
             {clues.map((clueObj, index) => (
                 <p key={index}> {clueObj.clue} ({clueObj.num}) </p>
             ))}
