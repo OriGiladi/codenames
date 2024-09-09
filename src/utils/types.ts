@@ -63,4 +63,5 @@ export type user = {
     team: team
     user?: string
     chatRoomID: number
+    isOnline: boolean
 }

@@ -9,7 +9,7 @@ class UserStore {
     role?: role
     team?: team
     hasChosenRole: boolean = false
-    
+    isOnline: boolean = false
     constructor(rootStore: RootStore) {
         this.rootstore = rootStore;
         makeAutoObservable(this);
@@ -28,6 +28,9 @@ class UserStore {
     }
     setHasChosenRole(hasChosenRole: boolean) {
         this.hasChosenRole = hasChosenRole
+    }
+    setIsOnline(isOnline: boolean) {
+        this.isOnline = isOnline
     }
     isHost() {
         return this.role === 'code-master' && this.team === 'blue'
