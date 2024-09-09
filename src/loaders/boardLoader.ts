@@ -20,10 +20,10 @@ export const boardLoader = (data: gameProperties) => {
     else{
         gamePropertiesStore.setAllDisable(true)
     }    
-    gamePropertiesStore.setFirstTeamScore(data.firstTeamScore as number)
-    gamePropertiesStore.setSecondTeamScore(data.secondTeamScore as number)
+    gamePropertiesStore.setFirstTeamRemainingWords(data.firstTeamRemainingWords as number)
+    gamePropertiesStore.setSecondTeamRemainingWords(data.secondTeamRemainingWords as number)
     gamePropertiesStore.setFirstTeamClues(data.firstTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamClues(data.secondTeamClues as clueObj[])
     gamePropertiesStore.setSecondTeamUnguessedWords(data.secondTeamUnguessedWords as string[])
-    gamePropertiesStore.setGameOver(data.gameOver as boolean)   
+    gamePropertiesStore.setWinner(data.winner as 'red' | 'blue' | null)   
 }

@@ -106,12 +106,12 @@ export async function getInitialGameProperties(socket: Socket){
         codeMasterView: false,
         guessesRemaining: 0,
         allDisable: true,
-        firstTeamScore: 9,
-        secondTeamScore: 8,
+        firstTeamRemainingWords: 9,
+        secondTeamRemainingWords: 8,
         firstTeamClues: [],
         secondTeamClues: [],
         secondTeamUnguessedWords: secondTeamWords,
-        gameOver: false
+        winner: null
     }
 
     socket.emit('gameStart', gameStartProperties, userStore.chatRoomID);

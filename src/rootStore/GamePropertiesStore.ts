@@ -11,15 +11,15 @@ class GamePropertiesStore {
     codeMasterView?: boolean
     firstTeam?: team 
     firstTeamClues?: clueObj []
-    firstTeamScore?: number
+    firstTeamRemainingWords?: number
     firstTeamWords?: string []
     firstTeamUnguessedWords?: string []
     gameArray: cardData [] [] = []
-    gameOver?: boolean
+    winner?: "red" | "blue" | null
     guessesRemaining?: number
     secondTeam?: team
     secondTeamClues?: clueObj []
-    secondTeamScore?: number
+    secondTeamRemainingWords?: number
     secondTeamWords?: string []
     secondTeamUnguessedWords?: string []
     turn?: team
@@ -46,8 +46,8 @@ class GamePropertiesStore {
     setFirstTeamClues(firstTeamClues: clueObj []) {
         this.firstTeamClues = firstTeamClues
     }
-    setFirstTeamScore(firstTeamScore: number) {
-        this.firstTeamScore = firstTeamScore
+    setFirstTeamRemainingWords(firstTeamRemainingWords: number) {
+        this.firstTeamRemainingWords = firstTeamRemainingWords
     }
     setFirstTeamWords(firstTeamWords: string []) {
         this.firstTeamWords = firstTeamWords
@@ -58,8 +58,8 @@ class GamePropertiesStore {
     setGameArray(gameArray: cardData [] []) {
         this.gameArray = gameArray
     }
-    setGameOver(gameOver: boolean) {
-        this.gameOver = gameOver
+    setWinner(winner: 'red' | 'blue' | null) {
+        this.winner = winner
     }
     setGuessesRemaining(guessesRemaining: number) {
         this.guessesRemaining = guessesRemaining
@@ -70,8 +70,8 @@ class GamePropertiesStore {
     setSecondTeamClues(secondTeamClues: clueObj []) {
         this.secondTeamClues = secondTeamClues
     }
-    setSecondTeamScore(secondTeamScore: number) {
-        this.secondTeamScore = secondTeamScore
+    setSecondTeamRemainingWords(secondTeamRemainingWords: number) {
+        this.secondTeamRemainingWords = secondTeamRemainingWords
     }
     setSecondTeamWords(secondTeamWords: string []) {
         this.secondTeamWords = secondTeamWords
