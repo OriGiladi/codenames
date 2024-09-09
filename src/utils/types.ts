@@ -62,4 +62,5 @@ export type user = {
     role: role
     team: team
     user?: string
+    chatRoomID: number
 }
