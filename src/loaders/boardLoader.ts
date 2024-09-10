@@ -8,6 +8,7 @@ export const boardLoader = (data: gameProperties) => {
     gamePropertiesStore.setSecondTeamWords(data.secondTeamWords as string[])
     gamePropertiesStore.setFirstTeamUnguessedWords(data.firstTeamUnguessedWords as string[])
     gamePropertiesStore.setCivilianWords(data.civilianWords as string[])
+    gamePropertiesStore.setCivilianUnguessedWords(data.civilianUnguessedWords as string[])
     gamePropertiesStore.setAssassinWord(data.assassinWord as string[])
     gamePropertiesStore.setTurn(data.turn as team)
     gamePropertiesStore.setFirstTeam(data.firstTeam as team)

@@ -8,6 +8,7 @@ class GamePropertiesStore {
     allDisabled?: boolean
     assassinWord?: string []
     civilianWords?: string []
+    civilianUnguessedWords?: string []
     codeMasterView?: boolean
     firstTeam?: team 
     firstTeamClues?: clueObj []
@@ -36,6 +37,9 @@ class GamePropertiesStore {
     }
     setCivilianWords(civilianWords: string []) {
         this.civilianWords = civilianWords
+    }
+    setCivilianUnguessedWords(civilianUnguessedWords: string []) {
+        this.civilianUnguessedWords = civilianUnguessedWords
     }
     setCodeMasterView(codeMasterView: boolean) {
         this.codeMasterView = codeMasterView
