@@ -46,7 +46,7 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             ) :  (
                 <div className="App winner">
                     {gamePropertiesStore.winner && (
-                        <Confetti />
+                        <Confetti colors={[gamePropertiesStore.winner === 'red'?  '#cc0c0c':'#2789e5']} />
                     )}
                     <div className={gamePropertiesStore.winner === 'red' ? 
                     "red-winner" : gamePropertiesStore.winner === 'blue' ?
