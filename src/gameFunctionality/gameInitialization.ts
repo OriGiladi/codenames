@@ -99,6 +99,7 @@ export async function getInitialGameProperties(socket: Socket){
         firstTeamUnguessedWords: firstTeamWords,
         secondTeamWords: secondTeamWords,
         civilianWords: civilianWords,
+        civilianUnguessedWords: civilianWords,
         assassinWord: assassinWord,
         turn: startTurn,
         firstTeam: startTurn,

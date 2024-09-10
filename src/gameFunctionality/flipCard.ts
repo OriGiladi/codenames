@@ -93,6 +93,14 @@ export const flipCard = (clue: string, socket: Socket) => {
                 updatedGameProperties.secondTeamUnguessedWords = updatedUnguessedWords
             }
         }
+        else if(gamePropertiesStore.civilianUnguessedWords?.includes(clue)){
+            const indexOfTheWord = gamePropertiesStore.civilianUnguessedWords?.indexOf(clue) as number;
+            if (indexOfTheWord !== -1) {
+                const updatedUnguessedWords = [...(gamePropertiesStore.civilianUnguessedWords as string[])];
+                updatedUnguessedWords.splice(indexOfTheWord, 1);
+                updatedGameProperties.civilianUnguessedWords = updatedUnguessedWords
+            }
+        }
         updatedGameProperties.gameArray = gameArray
         if(updatedGameProperties.firstTeamRemainingWords === 0){ 
             updatedGameProperties.winner = gamePropertiesStore.firstTeam as 'red' | 'blue'
