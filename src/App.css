@@ -1,18 +1,6 @@
 .App {
     text-align: center;
 }
-.red-winner-bg{
-    background-image: url('../public/red-confetti.jpg');
-}
-.blue-winner-bg{
-    background-image: url('../public/blue-confetti.png');
-}
-.red-winner{
-    color: red;
-}
-.blue-winner{
-    color: blue;
-}
 .App-logo {
     height: 90px;
 }
