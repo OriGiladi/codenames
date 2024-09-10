@@ -12,6 +12,8 @@ import Card from './Card/Card';
 import ClueForm from './ClueForm';
 import Player from './Player';
 import { clueObj, team } from '../utils/types';
+// confetti
+import Confetti from 'react-confetti';
 
 const { gamePropertiesStore, userStore } = rootStore;
 
@@ -42,14 +44,15 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             {loading ? (
                 <div>Loading...</div>
             ) :  (
-                <div className={gamePropertiesStore.winner === 'red' ? 
-                "App red-winner-bg" : gamePropertiesStore.winner === 'blue' ?
-                "App blue-winner-bg" : 'App'
-                }>
+                <div className="App winner">
+                    {gamePropertiesStore.winner && (
+                        <Confetti />
+                    )}
                     <div className={gamePropertiesStore.winner === 'red' ? 
                     "red-winner" : gamePropertiesStore.winner === 'blue' ?
                     "blue-winner" : ''
                     }>
+
                         {gamePropertiesStore.winner === null ? '' : `The ${gamePropertiesStore.winner} won!`}
                     </div>
                     <div>turn: {gamePropertiesStore.turn}</div>
@@ -63,7 +66,6 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                         secondTeam={gamePropertiesStore.secondTeam as team}
                         socket={socket}
                     />
-
                     <div className="game-container">
                         <ClueForm giveClue={addClue} socket={socket} />
 
