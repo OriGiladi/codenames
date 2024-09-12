@@ -12,7 +12,7 @@ export function addClue(clueObj: clueObj, socket: Socket) {
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num,
-            chatRoomID: userStore.chatRoomID
+            chatRoom: userStore.chatRoom
         }
         socket.emit("updateGameProperties", addClueProperties)
     } else {
@@ -23,7 +23,7 @@ export function addClue(clueObj: clueObj, socket: Socket) {
             codeMasterView: false,
             allDisable: false,
             guessesRemaining: clueObj.num,
-            chatRoomID: userStore.chatRoomID
+            chatRoom: userStore.chatRoom
         }
         socket.emit("updateGameProperties", addClueProperties)
     }

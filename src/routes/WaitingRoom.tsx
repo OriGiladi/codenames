@@ -15,8 +15,8 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoomID);
-        socket.emit('join_room', userStore.chatRoomID);
+        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoom);
+        socket.emit('join_room', userStore.chatRoom);
     }, [])
     useEffect(() => {
         socket.on('updatingUsersResponse', (users: user []) => {
@@ -44,7 +44,7 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
             userName: userStore.userName,
             role: userStore.role as role,
             team: userStore.team as team,
-            chatRoomID: userStore.chatRoomID,
+            chatRoom: userStore.chatRoom,
             isOnline: true
         }
         try {
@@ -56,7 +56,7 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
             console.error(error);
             return { response: false, data: null };
         }
-        socket.emit("getChosenParts", userStore.chatRoomID)
+        socket.emit("getChosenParts", userStore.chatRoom)
     }
 
     function getRoleAndTeamFromPart(part: Part){

@@ -12,7 +12,7 @@ const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWor
     const showClues = () => {  
 
         const showCluesProperties = {
-            chatRoomID: userStore.chatRoomID,
+            chatRoom: userStore.chatRoom,
             showClues: !gamePropertiesStore.codeMasterView
         } as gameProperties
         if(userStore.role === userRoles.CODE_MASTER)  {
