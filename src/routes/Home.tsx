@@ -17,7 +17,6 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
         const res = await fetch(`${REST_API_BASE_URL}/user/userName/${userName}`)
         const data: {user: user | string} = await res.json()
         const user: user = data.user as user
-
         if(data.user === 'User not found'){
             socket.auth = { userName };
             socket.connect();
@@ -27,6 +26,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
                 sessionStorage.setItem('sessionID', sessionID);
                 socket.userName = userName
                 userStore.setChatRoomId(Number(chatRoomID));
+                socket.emit('join_room',chatRoomID )
                 navigate('/waitingRoom');
             });
         }
