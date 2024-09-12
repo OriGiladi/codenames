@@ -10,7 +10,7 @@ export const getUserProperties = async () => {
         userStore.setRole(data.user.role)
         userStore.setTeam(data.user.team)
         userStore.setUserName(data.user.userName)
-        userStore.setChatRoomId(data.user.chatRoomID)
+        userStore.setChatRoom(data.user.chatRoom)
         return null
     }
     return null

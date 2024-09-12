@@ -32,10 +32,9 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             socket.auth = { sessionID };
             socket.connect();
             socket.on('connect', () => {
-                socket.emit('newUser', { userName: userStore.userName || sessionStorage.getItem('userName'), socketID: socket.id}, userStore.chatRoomID);
+                socket.emit('newUser', { userName: userStore.userName || sessionStorage.getItem('userName'), socketID: socket.id}, userStore.chatRoom);
                 socket.emit("updateGameProperties", 'none' ,sessionStorage.getItem('userName')) // just to get the game properties from the server
             });
-           // socket.emit('join_room', chatRoomID);
         }
     }, []);
 

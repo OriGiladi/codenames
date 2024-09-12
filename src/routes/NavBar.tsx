@@ -21,7 +21,7 @@ const NavBar = observer(({socket}: {socket: SessionSocket}) => {
             <div> {userStore.userName} </div>
             <div> Role: {userStore.role} </div>
             <div> Team: {userStore.team} </div>
-            <div> Room ID: {userStore.chatRoomID} </div>
+            <div> Room ID: {userStore.chatRoom} </div>
             {onlineUsersStore.onlineUsers?.map((player) => (
                 <div key={player.userName} className="users-in-game">
                     <FontAwesomeIcon icon={faCircle} className={player.isOnline ? 'online-icon' : 'offline-icon'} /> 

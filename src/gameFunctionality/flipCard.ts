@@ -4,7 +4,7 @@ import { gameProperties, team } from "../utils/types";
 const { gamePropertiesStore, userStore } = rootStore
 
 export const flipCard = (clue: string, socket: Socket) => {
-    const updatedGameProperties: gameProperties = { chatRoomID: userStore.chatRoomID}
+    const updatedGameProperties: gameProperties = { chatRoom: userStore.chatRoom}
     const gameArray = [...gamePropertiesStore.gameArray];
     let nextTurn: team | null = null
     let otherTeam: team;

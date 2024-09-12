@@ -5,7 +5,7 @@ import { role, team } from "../utils/types";
 class UserStore {
     rootstore : RootStore
     userName: string = "";
-    chatRoomID: number = 0
+    chatRoom: string = ''
     role?: role
     team?: team
     hasChosenRole: boolean = false
@@ -17,8 +17,8 @@ class UserStore {
     setUserName(userName: string) {
         this.userName = userName
     }
-    setChatRoomId(chatRoomId: number) {
-        this.chatRoomID = chatRoomId
+    setChatRoom(chatRoom: string) {
+        this.chatRoom = chatRoom
     }
     setRole(role: role) {
         this.role = role

@@ -93,7 +93,7 @@ export async function getInitialGameProperties(socket: Socket){
         gameArray.push(row)
     }
     const gameStartProperties: gameProperties = { 
-        chatRoomID: userStore.chatRoomID,
+        chatRoom: userStore.chatRoom,
         gameArray: gameArray,
         firstTeamWords: firstTeamWords,
         firstTeamUnguessedWords: firstTeamWords,
@@ -115,7 +115,7 @@ export async function getInitialGameProperties(socket: Socket){
         winner: null
     }
 
-    socket.emit('gameStart', gameStartProperties, userStore.chatRoomID);
+    socket.emit('gameStart', gameStartProperties, userStore.chatRoom);
     
     return null // makes it able to be used as a loader
 }

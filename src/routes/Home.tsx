@@ -10,7 +10,7 @@ const { userStore } = rootStore;
 const Home = observer(({ socket }: { socket: SessionSocket }) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
-    const [chatRoomID, setChatRoomID] = useState('');
+    const [chatRoom, setChatRoom] = useState('');
 
     const InsertUserProperties = async () => {
         userStore.setUserName(userName);
@@ -25,13 +25,13 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
                 socket.auth = { sessionID };
                 sessionStorage.setItem('sessionID', sessionID);
                 socket.userName = userName
-                userStore.setChatRoomId(Number(chatRoomID));
-                socket.emit('join_room',chatRoomID )
+                userStore.setChatRoom(chatRoom);
+                socket.emit('join_room',chatRoom )
                 navigate('/waitingRoom');
             });
         }
         
-        else if(user.userName === userName && user.chatRoomID === Number(chatRoomID) && user.isOnline === false){
+        else if(user.userName === userName && user.chatRoom === chatRoom && user.isOnline === false){
             socket.auth = { userName };
             socket.connect();
 
@@ -39,11 +39,11 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
                 socket.auth = { sessionID };
                 sessionStorage.setItem('sessionID', sessionID);
                 socket.userName = userName
-                userStore.setChatRoomId(Number(chatRoomID));
+                userStore.setChatRoom(chatRoom);
                 userStore.setRole(user.role)
                 userStore.setIsOnline(user.isOnline)
                 userStore.setTeam(user.team)
-                socket.emit('newUser', { userName: userStore.userName, socketID: socket.id}, userStore.chatRoomID);
+                socket.emit('newUser', { userName: userStore.userName, socketID: socket.id}, userStore.chatRoom);
                 socket.emit("updateGameProperties", 'none' ,userStore.userName) // just to get the game properties from the server
                 sessionStorage.setItem('userName', userStore.userName)
                 navigate('/board');
@@ -60,7 +60,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
             <div>enter your name</div>
             <input onChange={(e) => setUserName(e.target.value)} />
             <div>enter your chatroom</div>
-            <input onChange={(e) => {setChatRoomID(e.target.value)}}></input>
+            <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
 
             <button onClick={() => {InsertUserProperties()}}>insert</button>
         </>

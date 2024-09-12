@@ -10,7 +10,7 @@ export function passTurn(socket: Socket) {
         allDisable: true,
         turn: nextTurn,
         guessesRemaining: 0,
-        chatRoomID: userStore.chatRoomID
+        chatRoom: userStore.chatRoom
     }
     socket.emit("updateGameProperties", passTurnProperties)
 }
