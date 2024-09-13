@@ -2,8 +2,10 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import rootStore from '../rootStore';
-import { SessionSocket, user } from '../utils/types';
+import { role, SessionSocket, team, user } from '../utils/types';
 import { REST_API_BASE_URL } from '../utils/constants';
+import axios from 'axios';
+import { getHeaders } from '../utils/sdk';
 
 const { userStore } = rootStore;
 
@@ -18,12 +20,29 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
         const data: {user: user | string} = await res.json()
         const user: user = data.user as user
         if(data.user === 'User not found'){
+
+            const userProperties: user = {
+                userName: userStore.userName,
+                chatRoom: chatRoom,
+                isOnline: true
+            }
+            try {
+                await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {
+                    headers: getHeaders()
+                });
+                sessionStorage.setItem('userName', userStore.userName) 
+            } catch (error) {
+                console.error(error);
+                return { response: false, data: null };
+            }
+            
             socket.auth = { userName };
             socket.connect();
-
+            
             socket.on('session', ({ sessionID }) => {
                 socket.auth = { sessionID };
                 sessionStorage.setItem('sessionID', sessionID);
+                sessionStorage.setItem('userName', userStore.userName)
                 socket.userName = userName
                 userStore.setChatRoom(chatRoom);
                 socket.emit('join_room',chatRoom )
@@ -31,22 +50,30 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
             });
         }
         
-        else if(user.userName === userName && user.chatRoom === chatRoom && user.isOnline === false){
+        else if(user.userName === userName &&
+            user.chatRoom === chatRoom && 
+            user.isOnline === false){
             socket.auth = { userName };
             socket.connect();
-
+            const initializedGamePropertiesJson = await fetch(`${REST_API_BASE_URL}/gameProperties/${chatRoom}`)
+            const initializedGameProperties = await initializedGamePropertiesJson.json()
             socket.on('session', ({ sessionID }) => {
                 socket.auth = { sessionID };
                 sessionStorage.setItem('sessionID', sessionID);
                 socket.userName = userName
-                userStore.setChatRoom(chatRoom);
-                userStore.setRole(user.role)
-                userStore.setIsOnline(user.isOnline)
-                userStore.setTeam(user.team)
+                userStore.setChatRoom(user.chatRoom as string);
+                userStore.setRole(user.role as role)
+                userStore.setIsOnline(user.isOnline as boolean)
+                userStore.setTeam(user.team as team)
                 socket.emit('newUser', { userName: userStore.userName, socketID: socket.id}, userStore.chatRoom);
                 socket.emit("updateGameProperties", 'none' ,userStore.userName) // just to get the game properties from the server
                 sessionStorage.setItem('userName', userStore.userName)
-                navigate('/board');
+                if(initializedGameProperties.length > 0){
+                    navigate('/board');
+                }
+                else{
+                    navigate('/waitingRoom');
+                }            
             });
         }
         else{
@@ -58,9 +85,9 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
     return (
         <>
             <div>enter your name</div>
-            <input onChange={(e) => setUserName(e.target.value)} />
+            <input required onChange={(e) => setUserName(e.target.value)} />
             <div>enter your chatroom</div>
-            <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
+            <input required onChange={(e) => {setChatRoom(e.target.value)}}></input>
 
             <button onClick={() => {InsertUserProperties()}}>insert</button>
         </>
