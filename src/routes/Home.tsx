@@ -85,9 +85,9 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
     return (
         <>
             <div>enter your name</div>
-            <input required onChange={(e) => setUserName(e.target.value)} />
+            <input onChange={(e) => setUserName(e.target.value)} />
             <div>enter your chatroom</div>
-            <input required onChange={(e) => {setChatRoom(e.target.value)}}></input>
+            <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
 
             <button onClick={() => {InsertUserProperties()}}>insert</button>
         </>
