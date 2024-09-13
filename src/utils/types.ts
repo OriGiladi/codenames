@@ -59,10 +59,10 @@ export interface SessionSocket extends Socket {
 }
 
 export type user = {
-    userName: string
-    role: role
-    team: team
+    userName?: string
+    role?: role
+    team?: team
     user?: string
-    chatRoom: string
-    isOnline: boolean
+    chatRoom?: string
+    isOnline?: boolean
 }

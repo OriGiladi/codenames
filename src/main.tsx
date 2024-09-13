@@ -35,6 +35,7 @@ const router = createBrowserRouter([
             {
                 path: 'waitingRoom',
                 element: <WaitingRoom socket={socket} />,
+                loader: getUserPropertiesLoader,
                 errorElement: <UnfimiliarPage />
             }, 
             {

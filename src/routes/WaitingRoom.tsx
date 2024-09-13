@@ -15,10 +15,23 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        socket.emit('newUser', { userName: socket.userName, socketID: socket.id}, userStore.chatRoom);
+        socket.emit('newUser', 
+        { userName: socket.userName, socketID: socket.id}, 
+         userStore.chatRoom); // when redirecting from Home.tsx
         socket.emit('join_room', userStore.chatRoom);
     }, [])
     useEffect(() => {
+        const sessionID = sessionStorage.getItem('sessionID');
+        if (sessionID) {
+            socket.auth = { sessionID };
+            socket.connect(); // when refreshing
+            socket.on('connect', () => {
+                socket.emit('newUser', 
+                { userName: userStore.userName || 
+                sessionStorage.getItem('userName'), 
+                socketID: socket.id}, userStore.chatRoom);
+            });
+        }
         socket.on('updatingUsersResponse', (users: user []) => {
             onlineUsersStore.setOnlineUsers(users)
             setLoading(false); // Data has been loaded, sets loading to false
@@ -44,11 +57,9 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
             userName: userStore.userName,
             role: userStore.role as role,
             team: userStore.team as team,
-            chatRoom: userStore.chatRoom,
-            isOnline: true
         }
         try {
-            await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {
+            await axios.patch(`${REST_API_BASE_URL}/user`, userProperties, {
                 headers: getHeaders()
             });
             sessionStorage.setItem('userName', userStore.userName) 
