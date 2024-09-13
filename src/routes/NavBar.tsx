@@ -7,6 +7,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'; // Import specific
 import { SessionSocket, user } from "../utils/types";
 import { useEffect } from "react";
 import { Avatar } from "@chakra-ui/react";
+import { REST_API_MULTIAVATAR_URL } from "../utils/constants";
 const  { userStore, onlineUsersStore } = rootStore
 
 const NavBar = observer(({socket}: {socket: SessionSocket}) => {
@@ -25,7 +26,7 @@ const NavBar = observer(({socket}: {socket: SessionSocket}) => {
             {onlineUsersStore.onlineUsers?.map((player) => (
                 <div key={player.userName} className="users-in-game">
                     <FontAwesomeIcon icon={faCircle} className={player.isOnline ? 'online-icon' : 'offline-icon'} /> 
-                    <Avatar src={`https://api.multiavatar.com/${player.userName}.png`}
+                    <Avatar src={`${REST_API_MULTIAVATAR_URL}/${player.userName}.png`}
                     className={player.userName === userStore.userName ? 'me player' : 'player'}
                     color={player.userName === userStore.userName ? 'blue' : 'black'}>
                         {player.userName}
