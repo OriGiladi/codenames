@@ -1,0 +1,56 @@
+header{
+    width: 100%;
+    padding-right: 50px;
+    background-color: #fff3d4;
+    box-shadow: 0 1 5px rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo {
+    height: 80px;
+    margin-bottom: 20px;
+    padding-left: 40px;
+}
+
+.user-info {
+    list-style-type: none; 
+    display: flex; 
+    justify-content: center; 
+    gap: 0; 
+    padding: 0; 
+    margin: 10px;
+    font-family: 'Arial', sans-serif; 
+    font-size: 16px;
+}
+
+.user-info  li{
+    margin: 0 10px 0 10px;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    background-color: #1A4870;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.user-info  li:hover {
+    background-color: #2c5e89;
+}
+
+#wrap-user-info{
+    margin: 20px 0 0 30px ;
+}
+
+header #players {
+    float: right;
+    margin: 20px 0 20px 0;
+    margin-right: 0; 
+    padding: 10px 20px 10px 20px;
+    text-align: center;
+    display: flex;
+}
+
+header #players p {
+    color: rgb(0, 0, 0);
+    padding-right: 15px;
+}

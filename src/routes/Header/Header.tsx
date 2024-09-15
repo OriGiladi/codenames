@@ -1,24 +1,13 @@
 import TeamWords from './TeamWords'
 import rootStore from '../../rootStore'
 import { observer } from 'mobx-react'
-import { Image } from '@chakra-ui/react'
 import { Socket } from 'socket.io-client'
-import { userRoles } from '../../utils/constants'
-import { gameProperties, team } from '../../utils/types'
-const { gamePropertiesStore, userStore } = rootStore
+import { team } from '../../utils/types'
+const { gamePropertiesStore } = rootStore
 
-const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam, socket}: 
+const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWord, secondTeamWords, secondTeam}: 
     { firstTeamWords: string [], firstTeam: team, civilianWords: string[], assassinWord: string [], secondTeamWords: string [], secondTeam: team, socket: Socket}) => {
-    const showClues = () => {  
 
-        const showCluesProperties = {
-            chatRoom: userStore.chatRoom,
-            showClues: !gamePropertiesStore.codeMasterView
-        } as gameProperties
-        if(userStore.role === userRoles.CODE_MASTER)  {
-            socket.emit("updateGameProperties", showCluesProperties)
-        }
-    }
     return (
         <header className={`App-header clue-${gamePropertiesStore.codeMasterView  ?
         "shown" : "hide"}`}>
@@ -33,13 +22,6 @@ const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWor
                 ) : (
                     <div className="col-md-4 clues" />
                 )}
-
-                <div className="col-md-4 ">
-                    <Image src='../../../public/codenames.jpg' className="App-logo" alt="logo" 
-                    onClick={() => showClues()} />
-                    <h1 className="App-title">Welcome to Codenames</h1>
-                </div>
-
                 {gamePropertiesStore.codeMasterView  ? ( 
                 <TeamWords
                     TeamWords={secondTeamWords}
