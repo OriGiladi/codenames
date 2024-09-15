@@ -43,11 +43,11 @@ export const flipCard = (clue: string, socket: Socket) => {
                     else if(gamePropertiesStore.turn === gamePropertiesStore.secondTeam){
                         updatedGameProperties.firstTeamRemainingWords = firstTeamRemainingWords - 1 ;
                     }
-                    // else{
-                        gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
-                        updatedGameProperties.allDisable = true;
-                        updatedGameProperties.guessesRemaining = 0;
-                    //}
+                    
+                    gamePropertiesStore.turn === "red" ? (nextTurn = "blue") : (nextTurn = "red");
+                    updatedGameProperties.allDisable = true;
+                    updatedGameProperties.guessesRemaining = 0;
+                    
 
                     alert(`opponent's word, turn switched to ${nextTurn}`)
                     updatedGameProperties.allDisable = true;
