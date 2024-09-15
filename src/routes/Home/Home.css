@@ -1,0 +1,85 @@
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.containr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background: linear-gradient(to right, #FFDC7F, #227B94);
+    /* background-image: url('/public/home-back.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
+}
+
+#data {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    background-color: #FFDC7F;
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgb(89, 89, 89);
+}
+
+/* for the titles */
+#data h2 {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+/* for the inputs */
+#data input {
+    font-size: 16px; 
+    padding: 10px 15px;
+    border: 2px solid #227B94; 
+    border-radius: 8px; 
+    outline: none; 
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+#data input:focus {
+    border-color: #FFDC7F;
+    background: #FFDC7F;
+    box-shadow: 0 0 5px rgba(34, 123, 148, 0.5);
+}
+
+#data input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+#data input:hover {
+    background-color: #FFDC7F;
+}
+
+#data #button {
+    background-color: #227B94;
+    color: #ffffff;
+    padding: 10px 70px 10px 70px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+#data #div-icon{
+    background-color: #ffffff;
+    width: min-content;
+    padding: 45px 50px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#data #div-icon:hover {
+    background-color: #f3f3f3;
+}
+
+#data #div-icon #icon {
+    font-size: 45px;
+}

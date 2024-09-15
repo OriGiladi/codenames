@@ -34,11 +34,9 @@ const Header = observer(({ firstTeamWords, firstTeam, civilianWords, assassinWor
                     <div className="col-md-4 clues" />
                 )}
 
-                <div className="col-md-4 ">
-                    <Image src='../../../public/codenames.jpg' className="App-logo" alt="logo" 
+                {/* <div className="col-md-4 ">
                     onClick={() => showClues()} />
-                    <h1 className="App-title">Welcome to Codenames</h1>
-                </div>
+                </div> */}
 
                 {gamePropertiesStore.codeMasterView  ? ( 
                 <TeamWords

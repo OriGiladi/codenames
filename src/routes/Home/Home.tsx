@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import rootStore from '../rootStore';
-import { SessionSocket, user } from '../utils/types';
-import { REST_API_BASE_URL } from '../utils/constants';
+import rootStore from '../../rootStore';
+import { SessionSocket, user } from '../../utils/types';
+import { REST_API_BASE_URL } from '../../utils/constants';
+import './Home.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 const { userStore } = rootStore;
 
@@ -57,12 +60,19 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
 
     return (
         <>
-            <div>enter your name</div>
-            <input onChange={(e) => setUserName(e.target.value)} />
-            <div>enter your chatroom</div>
-            <input onChange={(e) => {setChatRoomID(e.target.value)}}></input>
-
-            <button onClick={() => {InsertUserProperties()}}>insert</button>
+            <div className='containr'>
+                <div id='data'>
+                    <div id='div-icon'>
+                        <FontAwesomeIcon icon={faUser} id='icon'/>
+                    </div>
+                    <h2>enter your nickname</h2>
+                    <input placeholder='e.g: ariel' onChange={(e) => setUserName(e.target.value)} />
+                    <h2>enter your chatroom</h2>
+                    <input placeholder='e.g: friends' onChange={(e) => {setChatRoomID(e.target.value)}}></input>
+                    <br />
+                    <button id='button' onClick={() => {InsertUserProperties()}}>insert</button>
+                </div>
+            </div>
         </>
     );
 });
