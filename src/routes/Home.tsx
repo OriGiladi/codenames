@@ -6,6 +6,7 @@ import { role, SessionSocket, team, user } from '../utils/types';
 import { REST_API_BASE_URL } from '../utils/constants';
 import axios from 'axios';
 import { getHeaders } from '../utils/sdk';
+import { Button } from '@chakra-ui/react';
 
 const { userStore } = rootStore;
 
@@ -15,11 +16,14 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
     const [chatRoom, setChatRoom] = useState('');
 
     const InsertUserProperties = async () => {
+
         userStore.setUserName(userName);
         const res = await fetch(`${REST_API_BASE_URL}/user/userName/${userName}`)
         const data: {user: user | string} = await res.json()
         const user: user = data.user as user
-        if(data.user === 'User not found'){
+        const usersInChatRoomJson = await fetch(`${REST_API_BASE_URL}/user/chatRoom/${chatRoom}`)
+        const usersInChatRoom = await usersInChatRoomJson.json()
+        if(data.user === 'User not found' && usersInChatRoom.length < 4){
 
             const userProperties: user = {
                 userName: userStore.userName,
@@ -76,6 +80,9 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
                 }            
             });
         }
+        else if(usersInChatRoom.length >= 4){
+            alert('sorry, the room is full')
+        }
         else{
             alert('someone is using this nickname right now, find something else')
             // TODO: make it a dialog
@@ -89,7 +96,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
             <div>enter your chatroom</div>
             <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
 
-            <button onClick={() => {InsertUserProperties()}}>insert</button>
+            <Button isDisabled={userName === '' || chatRoom === ''} onClick={() => {InsertUserProperties()}}>insert</Button>
         </>
     );
 });
