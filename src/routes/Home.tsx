@@ -91,7 +91,7 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
 
     return (
         <>
-            <div>enter your name</div>
+            <div>enter your nickname</div>
             <input onChange={(e) => setUserName(e.target.value)} />
             <div>enter your chatroom</div>
             <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
