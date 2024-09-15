@@ -84,7 +84,6 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
             alert('sorry, the room is full')
         }
         else{
-            console.log(usersInChatRoom)
             alert('someone is using this nickname right now, find something else')
             // TODO: make it a dialog
         }
