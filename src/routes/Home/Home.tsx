@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import rootStore from '../rootStore';
-import { role, SessionSocket, team, user } from '../utils/types';
-import { REST_API_BASE_URL } from '../utils/constants';
+import rootStore from '../../rootStore';
+import { role, SessionSocket, team, user } from '../../utils/types';
+import { REST_API_BASE_URL } from '../../utils/constants';
 import axios from 'axios';
-import { getHeaders } from '../utils/sdk';
-import { Button } from '@chakra-ui/react';
+import { getHeaders } from '../../utils/sdk';
+import './Home.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const { userStore } = rootStore;
 
@@ -91,13 +93,20 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
 
     return (
         <>
-            <div>enter your nickname</div>
-            <input onChange={(e) => setUserName(e.target.value)} />
-            <div>enter your chatroom</div>
-            <input onChange={(e) => {setChatRoom(e.target.value)}}></input>
-
-            <Button isDisabled={userName === '' || chatRoom === ''} onClick={() => {InsertUserProperties()}}>insert</Button>
+            <div className='container'>
+                <div id='data'>
+                    <div id='div-icon'>
+                        <FontAwesomeIcon icon={faUser} id='icon'/>
+                    </div>
+                    <div>enter your nickname</div>
+                    <input placeholder='e.g: ariel' onChange={(e) => setUserName(e.target.value)} />
+                    <div>enter your chatroom</div>
+                    <input placeholder='e.g: friends' onChange={(e) => {setChatRoom(e.target.value)}}></input>
+                    <button id='button' disabled={userName === '' || chatRoom === ''} onClick={() => {InsertUserProperties()}}>insert</button>
+                </div>
+            </div>
         </>
+        
     );
 });
 
