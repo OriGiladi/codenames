@@ -112,7 +112,8 @@ export async function getInitialGameProperties(socket: Socket){
         firstTeamClues: [],
         secondTeamClues: [],
         secondTeamUnguessedWords: secondTeamWords,
-        winner: null
+        winner: null,
+        createdAt: new Date()
     }
 
     socket.emit('gameStart', gameStartProperties, userStore.chatRoom);
