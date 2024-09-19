@@ -36,7 +36,8 @@ const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, soc
         <>
             {gamePropertiesStore.codeMasterView &&  
             gamePropertiesStore.guessesRemaining === 0 &&
-            gamePropertiesStore.turn === userStore.team ? 
+            gamePropertiesStore.turn === userStore.team &&
+            gamePropertiesStore.winner === null ? 
             (
                 <CodeMasterView 
                     handleChange={handleChange} 

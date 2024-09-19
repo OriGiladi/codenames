@@ -1,5 +1,6 @@
 import rootStore from "../../rootStore"
 import { observer } from "mobx-react"
+import { useNavigate } from 'react-router-dom';
 import './NavBar.css'
 import '../../App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
@@ -9,9 +10,10 @@ import { SessionSocket, user } from "../../utils/types";
 import { useEffect } from "react";
 import { Avatar } from "@chakra-ui/react";
 import { REST_API_MULTIAVATAR_URL } from "../../utils/constants";
-const  { userStore, onlineUsersStore } = rootStore
+const  { userStore, onlineUsersStore, gamePropertiesStore } = rootStore
 
 const NavBar = observer(({socket}: {socket: SessionSocket}) => {
+    const navigate = useNavigate();
     useEffect(() => {
         socket.on('updatingUsersResponse', (users: user []) => {
             onlineUsersStore.setOnlineUsers(users);
@@ -28,6 +30,21 @@ const NavBar = observer(({socket}: {socket: SessionSocket}) => {
                         <li>Role: {userStore.role}</li>
                         <li>Team: {userStore.team}</li>
                         <li>Chat Room: {userStore.chatRoom} </li>
+                        {gamePropertiesStore.winner !== null &&
+                        onlineUsersStore.onlineUsers?.length === 4 ?
+                        (<li 
+                        onClick={() => { 
+                            navigate('/')
+                            socket.disconnect() 
+                            onlineUsersStore.setOnlineUsers([])
+                            userStore.disconnect()
+                        }}>
+                        Start a new game
+                        </li>
+                        ) 
+                        : 
+                        ('')
+                }
                     </ul>
                 </div>
                 <div id="players">
@@ -42,7 +59,6 @@ const NavBar = observer(({socket}: {socket: SessionSocket}) => {
                         </div>
                     ))}
                 </div>
-                    
             </header>
             
         </>
