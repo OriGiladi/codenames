@@ -13,7 +13,10 @@ const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, soc
     const [clueNum, setClueNum] = useState('');
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setClue(e.target.value);
+        const value = e.target.value;
+        if (!value.includes(" ")){
+            setClue(e.target.value);
+        }   
     };
     
     const handleChangeNum = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +42,7 @@ const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, soc
             gamePropertiesStore.turn === userStore.team ? 
             (
                 <CodeMasterView 
+                    value={clue}
                     handleChange={handleChange} 
                     handleChangeNum={handleChangeNum} 
                     handleSubmit={handleSubmit}
