@@ -1,6 +1,9 @@
 import { ChangeEvent, FormEvent } from "react"
-function CodeMasterView({ handleChange, handleChangeNum, handleSubmit } : 
-    { handleChange: (e: ChangeEvent<HTMLInputElement>) => void, 
+function CodeMasterView({  clueValue, handleChange, numValue, handleChangeNum, handleSubmit } : 
+    {   
+        clueValue: string,
+        handleChange: (e: ChangeEvent<HTMLInputElement>) => void, 
+        numValue: string,
         handleChangeNum: (e: ChangeEvent<HTMLInputElement>) => void, 
         handleSubmit: (e: FormEvent<HTMLFormElement>) => void }) {
     return (
@@ -11,6 +14,7 @@ function CodeMasterView({ handleChange, handleChangeNum, handleSubmit } :
                 <div className="row">
                     <div className="col-md-6">
                     <input
+                        value={clueValue}
                         className="form-control"
                         type="text"
                         id="clue-input-field"
@@ -19,8 +23,13 @@ function CodeMasterView({ handleChange, handleChangeNum, handleSubmit } :
                     />
                     </div>
                     <div className="col-md-2">
-                        <input type="text" className="form-control" id="clueNum-input-field"
-                        placeholder="#" onChange = { handleChangeNum }/>
+                        <input 
+                        type="text" 
+                        value={numValue}
+                        className="form-control" 
+                        id="clueNum-input-field"
+                        placeholder="#" 
+                        onChange = { handleChangeNum }/>
                     </div>
                     <div className="col-md-4">
                         <button type="submit" 

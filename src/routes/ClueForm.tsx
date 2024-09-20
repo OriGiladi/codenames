@@ -13,23 +13,30 @@ const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, soc
     const [clueNum, setClueNum] = useState('');
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setClue(e.target.value);
+        const value = e.target.value;
+        if (!value.includes(" ")){
+            setClue(e.target.value);
+        }   
     };
     
     const handleChangeNum = (e: ChangeEvent<HTMLInputElement>) => {
-        setClueNum(e.target.value);
+        const value = e.target.value;
+        const remainingWords = gamePropertiesStore.turn === gamePropertiesStore.firstTeam ? gamePropertiesStore.firstTeamRemainingWords : gamePropertiesStore.secondTeamRemainingWords;
+        if (!value.includes(" ") && !isNaN(Number(value)) && (Number(value) <= (remainingWords as number))){
+            setClueNum(e.target.value);
+        }
     };
     
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        giveClue(
-            {
-                clue: clue,
-                num: Number(clueNum),
-                
-            },
-            socket
-        );
+            giveClue(
+                {
+                    clue: clue,
+                    num: Number(clueNum),
+                    
+                },
+                socket
+            )
     };
 
     return (
@@ -39,7 +46,9 @@ const ClueForm = observer(({ giveClue, socket }: { giveClue: (clue: clueObj, soc
             gamePropertiesStore.turn === userStore.team ? 
             (
                 <CodeMasterView 
+                    clueValue={clue}
                     handleChange={handleChange} 
+                    numValue={clueNum}
                     handleChangeNum={handleChangeNum} 
                     handleSubmit={handleSubmit}
                 />
