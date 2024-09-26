@@ -30,7 +30,8 @@ const Home = observer(({ socket }: { socket: SessionSocket }) => {
             const userProperties: user = {
                 userName: userStore.userName,
                 chatRoom: chatRoom,
-                isOnline: true
+                isOnline: true,
+                createdAt: new Date()
             }
             try {
                 await axios.post(`${REST_API_BASE_URL}/user`, userProperties, {

@@ -36,6 +36,7 @@ export type gameProperties = {
     secondTeamClues?: clueObj [];
     secondTeamUnguessedWords?: string []
     winner?: 'red' | 'blue' | null;
+    createdAt?: Date;
 };
 export type clueObj = {
     clue: string;
@@ -64,5 +65,6 @@ export type user = {
     team?: team
     user?: string
     chatRoom?: string
-    isOnline?: boolean
+    isOnline?: boolean,
+    createdAt?: Date
 }
