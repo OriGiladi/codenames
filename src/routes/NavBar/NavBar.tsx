@@ -2,8 +2,8 @@ import rootStore from "../../rootStore"
 import { observer } from "mobx-react"
 import './NavBar.css'
 import '../../App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
-import { faCircle } from '@fortawesome/free-solid-svg-icons'; // Import specific icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { SessionSocket, user } from "../../utils/types";
 import { useEffect } from "react";

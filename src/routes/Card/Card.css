@@ -1,0 +1,75 @@
+.card-container{
+    background-color: #ebd8c0;
+    height: 20vh;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.5em; 
+    padding-bottom: 8.5em;
+    border-radius: 10px;
+}
+
+.unfliped{
+    background-color: #ebd8c0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: 3px solid #a29278;
+    border-radius: 10px;
+    width: 12vw;
+    padding: 0.1em;
+}
+
+.card-main {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.card-flex{
+    display: flex;
+    justify-content: end;
+    align-content: end;
+    align-items: end;
+    margin-bottom: 0.5em;
+} 
+.reversed-card{
+    rotate: 180deg;
+    font-size: small;
+    color: #a29278;
+    border-top: 3px solid #a29278;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.white-circle{
+    color: #FAF7F0;
+}
+
+.red{
+    background-color: #e86924;
+    color: #FAF7F0;
+    border-color: #FAF7F0;
+}
+
+
+.blue{
+    background-color: #02b0cd;
+    color: #FAF7F0;
+    border-color: #FAF7F0;
+}
+
+.civilian{
+    background-color: #FAF7F0;
+    color: #181C14;
+    border-color: #181C14;
+}
+
+.assassin{
+    background-color: #181C14;
+    color: #FAF7F0;
+    border-color: #FAF7F0;
+}
