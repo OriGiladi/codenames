@@ -10,8 +10,8 @@ function UnflipedCard({clue, socket, disable, flipCard} :
         <div className="card-container">
             <button className="card grow unfliped btn" disabled={disable} type="button" onClick={() => {flipCard(clue, socket)}}>
                 <FontAwesomeIcon icon={faCircle} className="white-circle" /> 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom:'0.5em' }}>
-                    <div className="reversed-card" style={{ textAlign: 'center', flex: 1 }}>
+                <div className="card-flex">
+                    <div className="reversed-card">
                         <p>{clue.toUpperCase()}</p>
                     </div>
                     <Image width={"3em"} height={'3em'} src="../../../public/navbar-img.png"/>
