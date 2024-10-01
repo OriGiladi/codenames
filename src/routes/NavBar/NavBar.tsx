@@ -26,10 +26,15 @@ const NavBar = observer(({socket}: {socket: SessionSocket}) => {
                 <img id="logo" src="../public/navbar-img.png" alt="" />
                 <div id="wrap-user-info">
                     <ul className="user-info">
-                        <li>{userStore.userName}</li>
-                        <li>Role: {userStore.role}</li>
-                        <li>Team: {userStore.team}</li>
-                        <li>Chat Room: {userStore.chatRoom} </li>
+                        {userStore.userName ?
+                            (<li>{userStore.userName}</li>) : ('')
+                        }
+                        {userStore.role?
+                            (<li>Role: {userStore.role}</li>) : ('')
+                        }
+                        {userStore.team ?
+                            (<li>Team: {userStore.team}</li>) : ('')
+                        }
                         {gamePropertiesStore.winner !== null &&
                         onlineUsersStore.onlineUsers?.length === 4 ?
                         (<li 

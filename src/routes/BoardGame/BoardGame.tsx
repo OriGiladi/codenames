@@ -12,6 +12,7 @@ import Card from '../Card/Card';
 import ClueForm from '../ClueForm';
 import Player from '../Player';
 import { clueObj, team } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
 // confetti
 import Confetti from 'react-confetti';
 
@@ -19,6 +20,7 @@ const { gamePropertiesStore, userStore } = rootStore;
 
 const BoardGame = observer(({ socket }: { socket: Socket }) => {
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     // TODO: try to nerrow down useEffects
     useEffect(() => { 
         socket.on('updateGamePropertiesResponse', (data) => {
@@ -41,7 +43,11 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
     return (
         <>
             {loading ? (
-                <div>Loading...</div>
+                <div>
+                    <div>Loading...</div> 
+                    <button onClick={()=> navigate('/')}> Back to home page</button>
+                </div>
+
             ) :  (
                 <div className="App winner">
                     {gamePropertiesStore.winner && (
@@ -78,21 +84,19 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 socket={socket}
                             />
                             <div className="col-md-10">
-                                {gamePropertiesStore.gameArray.map((deck, deckIndex) => (
-                                    <div className="card-deck" key={deckIndex}>
-                                        {deck.map((wordObj, index) => (
-                                            <Card
-                                                clue={wordObj.word}
-                                                key={index}
-                                                team={wordObj.team}
-                                                clicked={wordObj.clicked}
-                                                flipCard={flipCard}
-                                                disable={gamePropertiesStore.allDisabled as boolean}
-                                                socket={socket}
-                                            />
-                                        ))}
-                                    </div>
-                                ))}
+                                <div className="card-deck">
+                                    {gamePropertiesStore.gameArray.flat().map((wordObj, index) => (
+                                        <Card
+                                            clue={wordObj.word}
+                                            key={index}
+                                            team={wordObj.team}
+                                            clicked={wordObj.clicked}
+                                            flipCard={flipCard}
+                                            disable={gamePropertiesStore.allDisabled as boolean}
+                                            socket={socket}
+                                        />
+                                    ))}
+                                </div>
                             </div>
 
                             <Player
