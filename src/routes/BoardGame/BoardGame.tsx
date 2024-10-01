@@ -78,21 +78,19 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
                                 socket={socket}
                             />
                             <div className="col-md-10">
-                                {gamePropertiesStore.gameArray.map((deck, deckIndex) => (
-                                    <div className="card-deck" key={deckIndex}>
-                                        {deck.map((wordObj, index) => (
-                                            <Card
-                                                clue={wordObj.word}
-                                                key={index}
-                                                team={wordObj.team}
-                                                clicked={wordObj.clicked}
-                                                flipCard={flipCard}
-                                                disable={gamePropertiesStore.allDisabled as boolean}
-                                                socket={socket}
-                                            />
-                                        ))}
-                                    </div>
-                                ))}
+                                <div className="card-deck">
+                                    {gamePropertiesStore.gameArray.flat().map((wordObj, index) => (
+                                        <Card
+                                            clue={wordObj.word}
+                                            key={index}
+                                            team={wordObj.team}
+                                            clicked={wordObj.clicked}
+                                            flipCard={flipCard}
+                                            disable={gamePropertiesStore.allDisabled as boolean}
+                                            socket={socket}
+                                        />
+                                    ))}
+                                </div>
                             </div>
 
                             <Player

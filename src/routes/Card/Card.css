@@ -6,18 +6,20 @@
     margin-left: 0;
     margin-right: 0;
     padding: 0.5em; 
-    padding-bottom: 8.5em;
     border-radius: 10px;
+    width: 100%; 
+    max-width: 200px; 
+    aspect-ratio: 2 / 1;
 }
 
-.unfliped{
+.card-btn{
     background-color: #ebd8c0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border: 3px solid #a29278;
     border-radius: 10px;
-    width: 12vw;
+    width: 100%; 
     padding: 0.1em;
 }
 
@@ -75,3 +77,22 @@
     color: #FAF7F0;
     border-color: #FAF7F0;
 }
+@media only screen and (max-width: 400px) {
+    .card-container{
+        aspect-ratio: 2 / 1;
+        height: 22vh;
+    }
+} 
+
+@media (max-width: 768px) {
+    .card-container{
+        max-width: 80%;
+        height: 9em
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .card-container{
+        height: 9em;
+    }
+} 

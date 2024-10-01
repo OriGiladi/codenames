@@ -8,7 +8,10 @@ function FlipedCard({ clue, socket, cardStyle, flipCard }:
     { clue: string, socket: Socket, cardStyle: team, flipCard: (clue: string, socket: Socket) => void }) {
     return (
         <div className={`card-container ${cardStyle}`}>
-            <button className={`btn card grow unfliped ${cardStyle}`} disabled={true} onClick={() => { flipCard(clue, socket) }}>
+            <button 
+            className={`btn card grow card-btn ${cardStyle}`} 
+            disabled={true} 
+            onClick={() => { flipCard(clue, socket) }}>
                 <FontAwesomeIcon icon={faCircle} className="white-circle" />
 
                 <div className="card-flex">

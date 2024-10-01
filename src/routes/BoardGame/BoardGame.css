@@ -4,7 +4,22 @@ h1 {
     background-color: red;
 }
 
-.card-deck{
-    display: flex;
-    justify-content: space-around;
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 10px; 
+    justify-items: center;
+}
+
+@media (max-width: 1024px) {
+    .card-deck {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+
+@media (max-width: 760px) {
+    .card-deck {
+        grid-template-columns: repeat(1, 1fr); 
+        aspect-ratio: 2 / 1;
+    }
 }
