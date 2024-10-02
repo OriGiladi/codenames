@@ -94,7 +94,16 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
                 <div id='data'>
                     {loading ? 
                         (
-                            <div>Loading...</div>
+                            <div>
+                                <div>Loading...</div>
+                                <button onClick={()=> {
+                                socket.disconnect()
+                                navigate('/')}}> 
+                                    Back to home page
+                                </button>
+                            </div>
+                            
+                            
                         ) :
                         ( 
                             <>

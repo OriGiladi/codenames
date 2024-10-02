@@ -45,7 +45,11 @@ const BoardGame = observer(({ socket }: { socket: Socket }) => {
             {loading ? (
                 <div>
                     <div>Loading...</div> 
-                    <button onClick={()=> navigate('/')}> Back to home page</button>
+                    <button onClick={()=> {
+                    socket.disconnect()
+                    navigate('/')}}> 
+                        Back to home page
+                    </button>
                 </div>
 
             ) :  (
