@@ -101,11 +101,8 @@ const WaitingRoom = observer(({socket}: {socket: SessionSocket}) => {
                                 navigate('/')}}> 
                                     Back to home page
                                 </button>
-                            </div>
-                            
-                            
-                        ) :
-                        ( 
+                            </div>           
+                        ) : ( 
                             <>
                                 <button
                                 disabled={parts?.blueCM || userStore.hasChosenRole} 
