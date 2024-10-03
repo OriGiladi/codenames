@@ -12,7 +12,7 @@ export const flipCard = (clue: string, socket: Socket) => {
     const firstTeamRemainingWords = (gamePropertiesStore.firstTeamRemainingWords as number)
     const secondTeamRemainingWords = (gamePropertiesStore.secondTeamRemainingWords as number)
     gamePropertiesStore.turn === "red" ? (otherTeam = "blue") : (otherTeam = "red");
-
+    let alertMessage = ''
     for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 5; j++) {
             if (gameArray[i][j].word === clue) {
@@ -32,7 +32,7 @@ export const flipCard = (clue: string, socket: Socket) => {
                     if(guessesRemaining - 1 === 0){
                         updatedGameProperties.allDisable = true;
                         updatedGameProperties.turn = otherTeam;
-                        alert("switching turn")
+                        alertMessage = "switching turn"
                     }
                 } 
                 else if (gameArray[i][j].team === otherTeam) {
@@ -48,8 +48,8 @@ export const flipCard = (clue: string, socket: Socket) => {
                     updatedGameProperties.allDisable = true;
                     updatedGameProperties.guessesRemaining = 0;
                     
-
-                    alert(`opponent's word, turn switched to ${nextTurn}`)
+                    
+                    alertMessage =`opponent's word, turn switched to ${nextTurn}`
                     updatedGameProperties.allDisable = true;
                     updatedGameProperties.turn = otherTeam;
 
@@ -61,12 +61,13 @@ export const flipCard = (clue: string, socket: Socket) => {
                     updatedGameProperties.allDisable = true;
                     updatedGameProperties.guessesRemaining = 0;
 
-                    alert(`civilian's word, turn switched to ${nextTurn}`)
+                    alertMessage = `civilian's word, turn switched to ${nextTurn}`
                     updatedGameProperties.allDisable = true;
                     updatedGameProperties.turn = otherTeam;
                     break;
                 } else if (gameArray[i][j].team === "assassin") {
                     gameArray[i][j].clicked = true;
+                    alert('oops, you presses the assasin word')
                     if(gamePropertiesStore.turn === 'blue') {
                         updatedGameProperties.winner = 'red'
                     } 
@@ -109,6 +110,14 @@ export const flipCard = (clue: string, socket: Socket) => {
         }
         else if(updatedGameProperties.secondTeamRemainingWords === 0){
             updatedGameProperties.winner = gamePropertiesStore.secondTeam as 'red' | 'blue'
+        }
+        if(updatedGameProperties.winner !== null && updatedGameProperties.winner !== undefined){
+            updatedGameProperties.guessesRemaining = 0
+        }        
+        else{
+            if(alertMessage !== ''){
+                alert(alertMessage)
+            }  
         }
         socket.emit("updateGameProperties", updatedGameProperties as gameProperties)
 }

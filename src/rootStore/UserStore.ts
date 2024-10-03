@@ -32,8 +32,16 @@ class UserStore {
     setIsOnline(isOnline: boolean) {
         this.isOnline = isOnline
     }
-    isHost() {
+    isHost() { // isHost was created in order to initiate the game only once instead of 4 time (will be from the blue team code master)
         return this.role === 'code-master' && this.team === 'blue'
+    }
+    disconnect() {
+        this.userName = ''
+        this.chatRoom = ''
+        this.role = undefined
+        this.team = undefined
+        this.setHasChosenRole(false)
+        localStorage.removeItem('userName')
     }
 
 }
